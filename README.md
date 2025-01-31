@@ -9,7 +9,10 @@ Requirerments
         (Dowmnload from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
         Installation Help
         https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/windows/
-        Note :- Ensure to put Password during installation, It is essential
+        Note :- i. Installation Location - Keep Default location ![alt text](image-2.png)
+                ii. It will ask location for Data Directory, Change it where you want the database to be like D Drive.
+                ![alt text](image-1.png)
+                iii. Ensure to put Password during installation, It is essential
 
 Other optional installations
 
@@ -24,5 +27,12 @@ Other optional installations
         https://code.visualstudio.com/download
         Not Require though
 <!--  -->
+Now the SETUP Phase
+
+1. Click on Code and Download Zip
+![alt text](image.png)
+2. Extract the Folder somewher (This location will be used more frequent)
+3. Open Command Prompt/Power Shell and go to extracted folder ![alt text](image-3.png)
+4.
 
 
