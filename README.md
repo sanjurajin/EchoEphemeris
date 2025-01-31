@@ -12,7 +12,7 @@ Requirerments
         Note :- i. Installation Location - Keep Default location ![alt text](image-2.png)
                 ii. It will ask location for Data Directory, Change it where you want the database to be like D Drive.
                 ![alt text](image-1.png)
-                iii. Ensure to put Password during installation, It is essential for step SETUP-5
+                iii. Ensure to put Password during installation, It is essential for step SETUP-3
                 
 Other optional installations
 
@@ -32,11 +32,13 @@ Now the SETUP Phase
 1. Click on Code (see above) and Download Zip
 ![alt text](image.png)
 2. Extract the Folder somewher (This location will be used more frequent)
-3. Open Command Prompt/Power Shell and go to extracted folder ![alt text](image-3.png)
-4. write below commands one by one and enter
+3. Open this exctracted folder (I will call it EchoEphemeris) & open file creden.txt
+        replace third line my_password with your password, you entered during PostgreSQL Installation
+4. Open Command Prompt/Power Shell and go to extracted folder ![alt text](image-3.png)
+5. write below commands one by one and enter
         i. py -m venv venv
         ii. .\venv\Scripts\activate
-5. Open this exctracted folder (I will call it EchoEphemeris) & open file creden.txt
-        replace third line my_password with your password, you entered during PostgreSQL Installation
+        iii pip install -r requirements.txt        
+6. Run schema_db.py (write on terminal/command prompt/power shell:- "python schema_db.py" & Enter)
 
 
