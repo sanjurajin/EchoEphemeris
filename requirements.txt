@@ -3,4 +3,5 @@ Flask
 pandas
 yfinance
 sqLAlchemy
+psycopg2
 psycopg2-binary

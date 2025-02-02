@@ -38,7 +38,8 @@ Now the SETUP Phase
 5. write below commands one by one and enter
         i. py -m venv venv
         ii. .\venv\Scripts\activate
-        iii pip install -r requirements.txt        
+        iii. pip install -r requirements.txt
+        iV.  python .\schema_db.py       
 6. Run schema_db.py (write on terminal/command prompt/power shell:- "python schema_db.py" & Enter)
 
 
