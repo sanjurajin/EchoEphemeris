@@ -44,8 +44,7 @@ Made for personal use (Arvind Bhai inspired me).
         python .\schema_db.py  
         python .\initial_setup.py   
 
-## 6. Every time to run the web/app
-Open Power Shell**
+## 6. Every time to run the web/app Open Power Shell
         .\venv\Scripts\activate
         flask run --debug
 
