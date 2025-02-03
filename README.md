@@ -45,7 +45,7 @@ Made for personal use (Arvind Bhai inspired me).
         python .\initial_setup.py   
 
 ## 6. Every time to run the web/app
-        **Open Power Shell**
+Open Power Shell**
         .\venv\Scripts\activate
         flask run --debug
 
