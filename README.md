@@ -6,7 +6,7 @@ Made for personal use (Arvind Bhai inspired me).
 ## 1. Install python on you PC 
        Download from https://www.python.org/downloads/
        Installation Help https://www.geeksforgeeks.org/how-to-install-python-on-windows/
- ## 2. Install PostgreSQL
+ 2. Install PostgreSQL
         Dowmnload from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
         Installation Help
         https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/windows/
