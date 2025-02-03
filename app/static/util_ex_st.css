@@ -20,7 +20,7 @@ body {
 .contents {
     flex-grow: 1;
     padding: 20px;
-    margin-top: 40px;
+    margin-top: 20px;
     display: flexbox;
     }
 
