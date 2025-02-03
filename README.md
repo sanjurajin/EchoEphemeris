@@ -10,9 +10,10 @@ Made for personal use (Arvind Bhai inspired me).
         Dowmnload from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
         Installation Help
         https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/windows/
-        Note :- i. Installation Location - Keep Default location ![alt text](image-2.png)
+        Note :- i. Installation Location - Keep Default location 
+                ![](image-2.png)
                 ii. It will ask location for Data Directory, Change it where you want the database to be like D Drive.
-                ![alt text](image-1.png)
+                ![](image-1.png)
                 iii. Ensure to put Password during installation, It is essential for step SETUP-3
                 
 # Other optional installations
@@ -37,11 +38,11 @@ Made for personal use (Arvind Bhai inspired me).
         replace third line my_password with your password, you entered during PostgreSQL Installation
 ## 4. Open Command Prompt/Power Shell and go to extracted folder ![alt text](image-3.png)
 ## 5. write below commands one by one and enter
-        i. py -m venv venv
-        ii.  .\venv\Scripts\activate
-        iii. pip install -r requirements.txt
-        iV.  python .\schema_db.py  
-        v.   python .\initial_setup.py   
+        py -m venv venv
+        .\venv\Scripts\activate
+        pip install -r requirements.txt
+        python .\schema_db.py  
+        python .\initial_setup.py   
 
 
 
