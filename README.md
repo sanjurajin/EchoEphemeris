@@ -4,7 +4,7 @@ Made for personal use (Arvind Bhai inspired me).
 Requirerments
 * Below Steps are for Windows OS (For macOS :- Almost Same. For Linux :- Do you really need)
 1. Install python on you PC (Download from https://www.python.org/downloads/)
-        Installation Help https://www.geeksforgeeks.org/how-to-install-python-on-windows/
+       Installation Help https://www.geeksforgeeks.org/how-to-install-python-on-windows/
 2. Install PostgreSQL  
         (Dowmnload from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
         Installation Help
