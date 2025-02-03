@@ -1,335 +1,141 @@
 import os
 import psycopg2
-
-
 cwd = os.getcwd()
-
-# ---------------------------------------
-# Read the creden file
-creden_file = os.path.join(cwd,'app',"creden.txt")
-credentials = open(creden_file,'r').read().split()
-
-db_name = credentials[0]
-db_user = credentials[1]
-db_password = credentials[2]
-# ---------------------------------------
-
-
-def create_database(db_password):
-    # Connect to the default database to create a new one
-    conn = psycopg2.connect(
-        database="postgres",  # Connect to the default database
-        user="postgres",  # Replace with your PostgreSQL username, default used
-        password=db_password,  # Replace with your PostgreSQL password, from creden.txt
-        host="localhost",
-        port="5432"
-    )
-    
-    conn.autocommit = True  # Enable autocommit mode
+x33b379a7 = os.path.join(cwd, 'app', 'creden.txt')
+sA_631aada4 = open(x33b379a7, 'r').read().split()
+xb4c16391 = sA_631aada4[0]
+xa0e71f8f = sA_631aada4[1]
+sA_2e48e91c = sA_631aada4[2]
+def zx_4414491f(sA_2e48e91c):
+    conn = psycopg2.connect(database='postgres', user='postgres', password=sA_2e48e91c, host='localhost', port='5432')
+    conn.autocommit = True
     cursor = conn.cursor()
-    try:    
-        # Create database
-        cursor.execute("CREATE DATABASE EchoEphemeris;")
+    try:
+        cursor.execute('CREATE DATABASE EchoEphemeris;')
         print("Database 'my_delivery_data' created successfully.")
-        status = True
+        x073c1634 = True
     except Exception as e:
-        print(f"An error occurred: {e}") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e}')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
         conn.close()
-    return status
-
-# --------------------------
-def static_tb(db_name, db_password):
-    # Connect to the new database to create a table
-    conn = psycopg2.connect(
-        database=db_name,
-        user="postgres",  # Replace with your PostgreSQL username
-        password=db_password,  # Replace with your PostgreSQL password
-        host="localhost",
-        port="5432"
-    )
-
+    return x073c1634
+def _ea13d6bb(xb4c16391, sA_2e48e91c):
+    conn = psycopg2.connect(database=xb4c16391, user='postgres', password=sA_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
     try:
-    # Create table
-        cursor.execute("""
-                      CREATE TABLE my_static_data (
-                            static_id SERIAL PRIMARY KEY,
-                            isin VARCHAR(20) NOT NULL UNIQUE,
-                            fininstrmid VARCHAR(10),
-                            fininstrmid_b VARCHAR(10),
-                            tckrsymb VARCHAR(20),
-                            tckrsymb_b VARCHAR(20),
-                            src VARCHAR(10),
-                            src_b VARCHAR(10),
-                            fininstrmnm VARCHAR(50) );
-
-                    """)
-
+        cursor.execute('\n                      CREATE TABLE my_static_data (\n                            static_id SERIAL PRIMARY KEY,\n                            isin VARCHAR(20) NOT NULL UNIQUE,\n                            fininstrmid VARCHAR(10),\n                            fininstrmid_b VARCHAR(10),\n                            tckrsymb VARCHAR(20),\n                            tckrsymb_b VARCHAR(20),\n                            src VARCHAR(10),\n                            src_b VARCHAR(10),\n                            fininstrmnm VARCHAR(50) );\n\n                    ')
         print("Table 'my_static_data' created successfully.")
-        status = True
+        x073c1634 = True
     except Exception as e:
-        print(f"An error occurred: {e}") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e}')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
         conn.commit()
         conn.close()
-    return status
-
-
-# --------------------------
-def daily_tb(db_name, db_password):
-    # Connect to the new database to create a table
-    conn = psycopg2.connect(
-        database=db_name,
-        user="postgres",  # Replace with your PostgreSQL username
-        password=db_password,  # Replace with your PostgreSQL password
-        host="localhost",
-        port="5432"
-    )
-
+    return x073c1634
+def x47b43f5a(xb4c16391, sA_2e48e91c):
+    conn = psycopg2.connect(database=xb4c16391, user='postgres', password=sA_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
     try:
-    # Create table
-        cursor.execute("""
-                       CREATE TABLE my_daily_data (
-                            ISIN VARCHAR(20) NOT NULL,
-                            TradDt DATE NOT NULL,
-                            sctysrs VARCHAR(10),
-                            sctysrs_b VARCHAR(10),
-                            opnpric DECIMAL(12,2),
-                            hghpric DECIMAL(12,2),
-                            lwpric DECIMAL(12,2),
-                            clspric DECIMAL(12,2),
-                            lastpric DECIMAL(12,2),
-                            prvsclsgpric DECIMAL(12,2),
-                            sttlmpric DECIMAL(12,2),
-                            ttltradgvol BIGINT,
-                            ttltrfval BIGINT,
-                            ttlnboftxsexctd BIGINT,
-                            qty_del BIGINT,
-                            delvry_trnovr BIGINT,
-                            ttltradgvol_b BIGINT,
-                            ttltrfval_b BIGINT,
-                            ttlnboftxsexctd_b BIGINT,
-                            qty_del_b BIGINT,
-                            delvry_trnovr_b BIGINT,
-                            sum_ttltradgvol BIGINT,
-                            sum_ttltrfval BIGINT,
-                            sum_ttlnboftxsexctd BIGINT,
-                            sum_del_qty BIGINT,
-                            sum_delvry_trnovr BIGINT,
-                            del_per DECIMAL(12,2),
-                            avg_price DECIMAL(12,2),
-                            avg_qty_per_order BIGINT,
-                            avg_order_price DECIMAL(12,2),
-                            close_to_avg DECIMAL(12,2),
-                            close_avg_perc DECIMAL(12,2),
-                            othr_trds VARCHAR(20),
-                            othr_trds_vol BIGINT,
-                            othr_trds_val BIGINT,
-                            othr_trds_txsexctd BIGINT,
-                            events TEXT,
-                            FOREIGN KEY (ISIN) REFERENCES my_static_data(ISIN) ON DELETE CASCADE,
-                            CONSTRAINT my_daily_data_pkey PRIMARY KEY (ISIN, TradDt, sctysrs, sctysrs_b)
-                                )
-                                PARTITION BY RANGE (TradDt);
-                        """)
-
+        cursor.execute('\n                       CREATE TABLE my_daily_data (\n                            ISIN VARCHAR(20) NOT NULL,\n                            TradDt DATE NOT NULL,\n                            sctysrs VARCHAR(10),\n                            sctysrs_b VARCHAR(10),\n                            opnpric DECIMAL(12,2),\n                            hghpric DECIMAL(12,2),\n                            lwpric DECIMAL(12,2),\n                            clspric DECIMAL(12,2),\n                            lastpric DECIMAL(12,2),\n                            prvsclsgpric DECIMAL(12,2),\n                            sttlmpric DECIMAL(12,2),\n                            ttltradgvol BIGINT,\n                            ttltrfval BIGINT,\n                            ttlnboftxsexctd BIGINT,\n                            qty_del BIGINT,\n                            delvry_trnovr BIGINT,\n                            ttltradgvol_b BIGINT,\n                            ttltrfval_b BIGINT,\n                            ttlnboftxsexctd_b BIGINT,\n                            qty_del_b BIGINT,\n                            delvry_trnovr_b BIGINT,\n                            sum_ttltradgvol BIGINT,\n                            sum_ttltrfval BIGINT,\n                            sum_ttlnboftxsexctd BIGINT,\n                            sum_del_qty BIGINT,\n                            sum_delvry_trnovr BIGINT,\n                            del_per DECIMAL(12,2),\n                            avg_price DECIMAL(12,2),\n                            avg_qty_per_order BIGINT,\n                            avg_order_price DECIMAL(12,2),\n                            close_to_avg DECIMAL(12,2),\n                            close_avg_perc DECIMAL(12,2),\n                            othr_trds VARCHAR(20),\n                            othr_trds_vol BIGINT,\n                            othr_trds_val BIGINT,\n                            othr_trds_txsexctd BIGINT,\n                            events TEXT,\n                            FOREIGN KEY (ISIN) REFERENCES my_static_data(ISIN) ON DELETE CASCADE,\n                            CONSTRAINT my_daily_data_pkey PRIMARY KEY (ISIN, TradDt, sctysrs, sctysrs_b)\n                                )\n                                PARTITION BY RANGE (TradDt);\n                        ')
         print("Table 'my_daily_data' created successfully.")
-        status = True
+        x073c1634 = True
     except Exception as e:
-        print(f"An error occurred: {e}") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e}')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
         conn.commit()
         conn.close()
-    return status
+    return x073c1634
 
-
-# --------------------------
-def daily_tb_part(db_name, db_password):
-    # Connect to the new database to create a table
-    conn = psycopg2.connect(
-        database=db_name,
-        user="postgres",  # Replace with your PostgreSQL username
-        password=db_password,  # Replace with your PostgreSQL password
-        host="localhost",
-        port="5432"
-    )
-
+def sA_c4dfeba4(xb4c16391, sA_2e48e91c):
+    conn = psycopg2.connect(database=xb4c16391, user='postgres', password=sA_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
     try:
-    # Create table
-        cursor.execute("""
-                        CREATE TABLE my_daily_data_q1_2024 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2024-01-01') TO ('2024-04-01');
-                        CREATE TABLE my_daily_data_q2_2024 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2024-04-01') TO ('2024-07-01');
-                        CREATE TABLE my_daily_data_q3_2024 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2024-07-01') TO ('2024-10-01');
-                        CREATE TABLE my_daily_data_q4_2024 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2024-10-01') TO ('2025-01-01');
-                        CREATE TABLE my_daily_data_q1_2025 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2025-01-01') TO ('2025-04-01');
-                        CREATE TABLE my_daily_data_q2_2025 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2025-04-01') TO ('2025-07-01');
-                        CREATE TABLE my_daily_data_q3_2025 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2025-07-01') TO ('2025-10-01');
-                        CREATE TABLE my_daily_data_q4_2025 PARTITION OF my_daily_data
-                            FOR VALUES FROM ('2025-10-01') TO ('2026-01-01');
-                       
-                        """)
-
+        cursor.execute("\n                        CREATE TABLE my_daily_data_q1_2024 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2024-01-01') TO ('2024-04-01');\n                        CREATE TABLE my_daily_data_q2_2024 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2024-04-01') TO ('2024-07-01');\n                        CREATE TABLE my_daily_data_q3_2024 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2024-07-01') TO ('2024-10-01');\n                        CREATE TABLE my_daily_data_q4_2024 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2024-10-01') TO ('2025-01-01');\n                        CREATE TABLE my_daily_data_q1_2025 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2025-01-01') TO ('2025-04-01');\n                        CREATE TABLE my_daily_data_q2_2025 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2025-04-01') TO ('2025-07-01');\n                        CREATE TABLE my_daily_data_q3_2025 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2025-07-01') TO ('2025-10-01');\n                        CREATE TABLE my_daily_data_q4_2025 PARTITION OF my_daily_data\n                            FOR VALUES FROM ('2025-10-01') TO ('2026-01-01');\n                       \n                        ")
         print("Partitions for 'my_daily_data' created successfully.")
-        status = True
+        x073c1634 = True
     except Exception as e:
-        print(f"An error occurred: {e}") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e}')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
         conn.commit()
         conn.close()
-    return status
+    return x073c1634
 
-
-# --------------------------
-def mapping_tb_(db_name, db_password):
-    # Connect to the new database to create a table
-    conn = psycopg2.connect(
-        database=db_name,
-        user="postgres",  # Replace with your PostgreSQL username
-        password=db_password,  # Replace with your PostgreSQL password
-        host="localhost",
-        port="5432"
-    )
-
+def var_49d6f108(xb4c16391, sA_2e48e91c):
+    conn = psycopg2.connect(database=xb4c16391, user='postgres', password=sA_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
     try:
-    # Create table
-        cursor.execute("""
-                        CREATE TABLE isin_mapping (
-                            mapping_id SERIAL PRIMARY KEY,  -- Unique identifier for each mapping
-                            symbol VARCHAR(20),
-                            isin character varying(12) NOT NULL,
-                            ref_isin character varying(12) NOT NULL,
-                            FOREIGN KEY (isin) REFERENCES my_static_data(isin),  -- Ensure isin exists in static_data
-                            FOREIGN KEY (ref_isin) REFERENCES my_static_data(isin),  -- Ensure ref_isin exists in static_data
-                            UNIQUE (isin, ref_isin)  -- Ensure that the combination of isin and ref_isin is unique
-                        );
-                        """)
-
+        cursor.execute('\n                        CREATE TABLE isin_mapping (\n                            mapping_id SERIAL PRIMARY KEY,  -- Unique identifier for each mapping\n                            symbol VARCHAR(20),\n                            isin character varying(12) NOT NULL,\n                            ref_isin character varying(12) NOT NULL,\n                            FOREIGN KEY (isin) REFERENCES my_static_data(isin),  -- Ensure isin exists in static_data\n                            FOREIGN KEY (ref_isin) REFERENCES my_static_data(isin),  -- Ensure ref_isin exists in static_data\n                            UNIQUE (isin, ref_isin)  -- Ensure that the combination of isin and ref_isin is unique\n                        );\n                        ')
         print("Table  'isin_mapping' created successfully.")
-        status = True
+        x073c1634 = True
     except Exception as e:
-        print(f"An error occurred: {e}") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e}')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
         conn.commit()
         conn.close()
-    return status
+    return x073c1634
 
-
-# ---------------------------------------
-def list_tables(db_name, db_user, db_password):
-    # Database connection parameters
-    conn = psycopg2.connect(
-        database=db_name,  # Replace with your database name
-        user=db_user,          # Replace with your PostgreSQL username
-        password=db_password,      # Replace with your PostgreSQL password
-        host="localhost",
-        port="5432"
-    )
-
-    # Create a cursor object
+def xe46c5d58(xb4c16391, xa0e71f8f, sA_2e48e91c):
+    conn = psycopg2.connect(database=xb4c16391, user=xa0e71f8f, password=sA_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
     try:
-            
-        # Execute the query to get all table names in the current database
-        cursor.execute("""
-            SELECT table_name 
-            FROM information_schema.tables 
-            WHERE table_schema = 'public';  -- Change schema if needed
-        """)
-
-        # Fetch all results and print each table name
-        tables = cursor.fetchall()
-        print("Tables in the database:")
-        for table in tables:
-            print(table[0])  # Print the table name
+        cursor.execute("\n            SELECT table_name \n            FROM information_schema.tables \n            WHERE table_schema = 'public';  -- Change schema if needed\n        ")
+        sA_d98a034f = cursor.fetchall()
+        print('Tables in the database:')
+        for x0d4fc4a7 in sA_d98a034f:
+            print(x0d4fc4a7[0])
     except Exception as e:
-        print(f"An error occurred: {e} while listing Tables") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e} while listing Tables')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
         conn.close()
-    
 
-# ---------------------------------------
-
-def check_database_exists(db_name, db_password):
+def _cf342737(xb4c16391, sA_2e48e91c):
     from psycopg2 import sql
-    # Connect to the default database to perform the check
-    conn = psycopg2.connect(
-        database="postgres",  # Connect to the default database
-        user="postgres",  # Replace with your PostgreSQL username
-        password=db_password,  # Replace with your PostgreSQL password
-        host="localhost",
-        port="5432"
-    )
-    
+    conn = psycopg2.connect(database='postgres', user='postgres', password=sA_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
     try:
-        # Query to check if the database exists
-        query = sql.SQL("SELECT 1 FROM pg_catalog.pg_database WHERE datname = %s;")
-        
-        cursor.execute(query, (db_name,))
-        exists = cursor.fetchone() is not None  # Check if any row was returned
+        query = sql.SQL('SELECT 1 FROM pg_catalog.pg_database WHERE datname = %s;')
+        cursor.execute(query, (xb4c16391,))
+        exists = cursor.fetchone() is not None
     except Exception as e:
-        print(f"An error occurred: {e}") # Handle other potential errors
-        status = False
+        print(f'An error occurred: {e}')
+        x073c1634 = False
     finally:
-        # Close the connection to execute commands on the new database
         cursor.close()
-        
-        conn.close()    
+        conn.close()
     if exists:
-        print(f"The database '{db_name}' already exists.")
-        status = False
+        print(f"The database '{xb4c16391}' already exists.")
+        x073c1634 = False
     else:
-        print(f"The database '{db_name}' does not exist.")
-        status = True
-    
-    # Close the cursor and connection
+        print(f"The database '{xb4c16391}' does not exist.")
+        x073c1634 = True
     cursor.close()
     conn.close()
-    return status
-
-# ---------------------------------------
-status = check_database_exists(db_name, db_password)
-if status:
-    status = create_database(db_password=db_password)
-if status:
-    status = static_tb(db_name=db_name, db_password=db_password)
-if status:
-    status = daily_tb(db_name=db_name, db_password=db_password)
-if status:    
-    status  = daily_tb_part(db_name=db_name, db_password=db_password)
-if status:
-    status  =  mapping_tb_(db_name=db_name, db_password=db_password)
-if status:
+    return x073c1634
+x073c1634 = _cf342737(xb4c16391, sA_2e48e91c)
+if x073c1634:
+    x073c1634 = zx_4414491f(db_password=sA_2e48e91c)
+if x073c1634:
+    x073c1634 = _ea13d6bb(db_name=xb4c16391, db_password=sA_2e48e91c)
+if x073c1634:
+    x073c1634 = x47b43f5a(db_name=xb4c16391, db_password=sA_2e48e91c)
+if x073c1634:
+    x073c1634 = sA_c4dfeba4(db_name=xb4c16391, db_password=sA_2e48e91c)
+if x073c1634:
+    x073c1634 = var_49d6f108(db_name=xb4c16391, db_password=sA_2e48e91c)
+if x073c1634:
     print('Database setup successfully done')
-    list_tables(db_name, db_user, db_password) 
-if not status:
-    list_tables(db_name, db_user, db_password)
+    xe46c5d58(xb4c16391, xa0e71f8f, sA_2e48e91c)
+if not x073c1634:
+    xe46c5d58(xb4c16391, xa0e71f8f, sA_2e48e91c)
