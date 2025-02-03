@@ -7,13 +7,21 @@ Made for personal use (Arvind Bhai inspired me).
        Download from https://www.python.org/downloads/
        Installation Help https://www.geeksforgeeks.org/how-to-install-python-on-windows/
  2. Install PostgreSQL  
+
         Dowmnload from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+
         Installation Help
+
         https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/windows/
+
         Note :- i. Installation Location - Keep Default location 
+
                 ![](image-2.png)
+        
                 ii. It will ask location for Data Directory, Change it where you want the database to be like D Drive.
+        
                 ![](image-1.png)
+        
                 iii. Ensure to put Password during installation, It is essential for step SETUP-3
                 
 # Other optional installations
