@@ -1,0 +1,153 @@
+
+body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	 background: linear-gradient(135deg, 
+		#e53935 5%,  /* Red */
+		#d81b60 20%,  /* Pink */
+		#8e24aa 50%,  /* Purple */
+		#1e88e5 70%,  /* Blue */
+		#42a5f5 85%,  /* Light Blue */
+		#26c6da 100%  /* Cyan */
+		);
+	
+	background-size: 200% 200%;
+	
+		}
+/* ------------------------------------------------------------------*/
+.main {
+    flex: 1; /*Take the remaining width*/
+    padding: 20px; /* Padding around main content */
+    margin-top: 20px;
+}
+
+h1 {
+    margin: 0; /* Remove margin from h3 */
+    text-align: left;
+    color: white;
+    z-index: 1000;   
+    
+}
+.last_trade_dates {
+    background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+	border-radius: 15px; /* Rounded corners */
+    display: flex; /* Flex layout for kids */
+    align-items: center; /* Center content vertically */
+    color: white; /* Text color */
+    position: relative; /* Needed for positioning the pseudo-element */
+    justify-content: space-between; /* Space out the child boxes */
+    padding: 10px; /* Padding inside the box */
+    margin-bottom: 20px; /* Margin below the box */
+    height: 180px; /* Fixed height */
+    width: 98%; /* Full width */
+    }
+
+
+
+.last_trade_dates::before {
+	border-radius: 8px; /* Rounded corners */
+	color: rgb(109, 77, 99); /* Text color */
+	background-color: rgba(255, 255, 255, 0.8);  /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+    content: "Last Trade Days"; /* Text to display */
+    position: absolute; /* Position it absolutely */
+    top: -22px; /* Move it further above the border */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Centering fix */
+    padding: 0 10px; /* Padding around the text */
+     font-weight: bold; /* Make the text bold */
+    z-index: 1; /* Ensure it appears on top */
+    border: none; /* Remove border from the text box */
+ 
+}
+
+.chart {
+    position: relative; /* Allows for positioning the border */
+    box-sizing: border-box; /* Ensures padding and border are included in the width/height */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
+    margin: 5px; /* Reduce margin for closer spacing */
+    height: 160px;
+    display: inline-flexbox; /* Keep elements inline without wrapping */
+    background-color: rgba(240, 240, 240, 1); /*rgba(214, 231, 231, 0.877)*/        
+	border-radius: 5px;
+	
+    }
+
+    .gauge_container {
+		background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+		border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+		border-radius: 8px;
+        height: 155px; /* Adjust the height as needed */
+        position: relative; /* Allows for positioning the border */
+        box-sizing: border-box; /* Ensures padding and border are included in the width/height */
+        margin: 5px; /* Reduce margin for closer spacing */
+        display: inline-block; /* Keep the gauge on the same line */
+        width: 30%; /* Adjust width as necessary */
+        
+                
+        }    
+    #gauge {
+        width: 100%;
+        height: 90%;
+        position: relative;
+        margin-top: 15px;
+		
+    }
+    .win_loss-container p {
+        margin-top: 0px;
+        font-size: medium;
+        color: rgb(187, 19, 179); /* Change this to any color you like */
+        text-align: center;
+        
+    }
+    
+.polar_chart-container {
+	background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+	border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+	width: 320px; /* Adjust the width as needed */
+    display: flex; /* Flex layout for bars */
+    flex-direction: column; /* Vertical stacking */
+    height: 155px; /* Adjust the height as needed */
+    position: relative; /* Allows for positioning the border */
+    box-sizing: border-box; /* Ensures padding and border are included in the width/height */
+    border-radius: 5px;
+    margin: 5px; /* Reduce margin for closer spacing */
+    
+}
+
+canvas {
+    background-color: #f0f0f0; /* Set the background color of the canvas */
+}
+
+.polar-canvas {
+	background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+    width: 100%; 
+    height: 100%;
+    border-radius: 5px;    
+}
+
+.equity_curve_chart {
+    background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+	border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+	border-radius: 15px;    /* Adjust as needed for rounding */
+    height: 300px;         /* Set height */
+    max-width: 100%;
+    display: flex;         /* Flexbox to center content if needed */
+    justify-content: center; /* Center horizontally */
+    align-items: center;   /* Center vertically */
+    margin-bottom: 20px; /* Margin below the box */
+    position: relative; /*Needed for positioning the pseudo-element*/
+    }
+
+#equityCurveChart {
+    border-radius: 15px;
+    background-color:rgba(230, 233, 233, 0.525);
+}        

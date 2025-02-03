@@ -5,3 +5,4 @@ yfinance
 sqLAlchemy
 psycopg2
 psycopg2-binary
+openpyxl
