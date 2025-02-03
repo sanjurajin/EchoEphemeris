@@ -1,0 +1,17 @@
+{
+    "create_database": "zx_4414491f",
+    "static_tb": "xea13d6bb",
+    "daily_tb": "x47b43f5a",
+    "daily_tb_part": "xc4dfeba4",
+    "mapping_tb_": "sa_49d6f108",
+    "list_tables": "xe46c5d58",
+    "check_database_exists": "sa_cf342737",
+    "cwd": "_6f2f7e6c",
+    "status": "sa_073c1634",
+    "creden_file": "var_33b379a7",
+    "credentials": "sa_631aada4",
+    "db_name": "var_b4c16391",
+    "db_user": "sa_a0e71f8f",
+    "db_password": "var_2e48e91c"
+    
+}
