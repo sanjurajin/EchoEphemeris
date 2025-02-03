@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>    
+	<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <title>Fundamental Analysis</title>
+    <style>
+       body {
+			margin: 0;
+			padding: 0;
+			height: 100vh;
+			 background: linear-gradient(135deg, 
+				#e53935 5%,  /* Red */
+				#d81b60 20%,  /* Pink */
+				#8e24aa 50%,  /* Purple */
+				#1e88e5 70%,  /* Blue */
+				#42a5f5 85%,  /* Light Blue */
+				#26c6da 100%  /* Cyan */
+				);
+			
+			background-size: 200% 200%;
+			/* animation: gradientBackground 15s ease infinite; */
+		}
+		
+		@keyframes gradientBackground {
+			0% {
+				background-position: 0% 50%;
+			}
+			50% {
+				background-position: 100% 50%;
+			}
+			100% {
+				background-position: 0% 50%;
+			}
+		}
+
+		.wavy-background {
+			position: absolute;
+			width: 100%;
+			height: 50vh;
+			top: 50%;
+			background: white;
+			clip-path: polygon(0 50%, 100% 45%, 100% 100%, 0% 100%);
+			z-index: 1;}
+
+        .contents {
+            flex-grow: 1;
+            padding: 20px;
+            margin-top: 40px;
+            display: flexbox;
+        }
+            
+        h1 {
+            margin: 0; /* Remove margin from h3 */
+            text-align: left;
+            margin-left: 20px;
+            color: white;
+            z-index: 1000;   
+            
+        }
+
+        .flex-box {
+            display: flex;                   /* Use Flexbox for layout */
+            justify-content: space-between; /* Distribute space between the boxes */
+            align-items: flex-start;        /* Align items at the start */
+            width: 100%;                    /* Full width */
+            
+            /*border: 1px solid #ccc; */        /* Add a border */
+            border-radius: 8px;
+            /*background-color: rgba(214, 231, 231, 0.877);*/
+
+            background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+            border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+            
+        }
+
+        .selection, .new-symbol  {
+            flex: 1;                        /* Flex-grow to fill available space */
+            padding: 20px;                 /* Optional: Add some padding */
+            margin: 10px;                  /* Optional: Add margin for spacing */
+            /*background-color: #f9f9f9;   */  /* Optional: Background color */
+            border-radius: 8px;            /* Optional: Rounded corners */
+            
+            /*background-color: rgba(214, 231, 231, 0.877);*/
+            /*background-color: rgba(214, 231, 231, 0.877);*/
+            /*border: 1px solid #ccc;          Add a border */
+            /*box-shadow: 0 2px 4px rgba(0,0,0,0.1); *//* Optional: Add some shadow for depth */
+            
+            
+            background-color: rgba(255, 255, 255, 0.3);  /* Semi-transparent white background */
+            border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+
+            
+            
+        }
+
+        .selection {
+            margin-right: 20px;            /* Space between structures */
+        }
+
+
+        h4 {
+            margin: 0 0 0 0; /* Add some space below the heading */
+            color: white;
+        }      
+
+            
+        .candle_container {
+            /*width: 95%;  Set container width to 100% */
+            /* max-width: 1200px; Optional: Set a max width for larger screen */
+            height: auto;
+            margin: 0 0 0 0;
+            padding: 10px;
+            border-radius: 15px;    /* Adjust as needed for rounding */
+            position: relative;
+            margin-right: 20px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            /*background-color:  rgba(226, 240, 240, 0.877); *//* Light background color */
+            /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+            /*border: 2px solid rgb(192, 75, 157); *//* Border color */
+            
+            background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+            border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+            
+            
+        }
+
+                
+        #candle_chart {
+            /* width: 94%; */
+            display: flex;
+            height: 600px;
+            position: relative;
+            border-radius: 15px; /* Match the container's border radius */
+            padding: 5px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            align-items: center;
+            justify-content: center;
+            color: rgba(82, 156, 190, 0.685);
+            
+            background-color: rgba(255, 255, 255, 0.2);  /* Semi-transparent white background */
+            border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+            }
+
+                
+        .tv-lightweight-charts {
+            border-radius: 20px;
+            
+            
+        }
+
+        .search-box {
+            height: auto ;
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            /*border: 1px solid #ccc;*/
+            /*background-color: rgba(214, 231, 231, 0.877);*/
+            background-color: rgba(255, 255, 255, 0.3);  /* Semi-transparent white background */
+            border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+            /* height: 50px;         Set height */
+            max-width: 95%;
+            display: block;         /* Flexbox to center content if needed */
+            justify-content: center; /* Center horizontally */
+            align-items: center;   /* Center vertically */
+            position: relative; /*Needed for positioning the pseudo-element*/
+            
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 15px;
+
+        }
+
+        /* General styles for the search box */
+        .search-input input{
+            height: 50px;
+            width: 98%;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            /* padding: 0 60px 0 20px; */
+            font-size: 18px;
+            /* box-shadow: 0px 1px 5px rgba(0,0,0,0.1); */
+            background: rgba(255, 255, 255, 0.2);  /* Semi-transparent white */
+            backdrop-filter: blur(10px);  /* Frosted glass effect with blur */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+            align-items: center;  /* Center items vertically */
+            
+        }
+        
+
+
+        .search-input .autocom-box{
+            padding: 0;
+            opacity: 0;
+            pointer-events: none;
+            max-height: 280px;
+            width: 98%;
+            overflow-y: auto;
+            border-radius: 15px;
+            }
+            
+        .search-input.active .autocom-box{
+            padding: 10px 8px;
+            opacity: 1;
+            pointer-events: auto;
+            }
+
+        .autocom-box li{
+            list-style: none;
+            
+            padding: 8px 12px;
+            display: none;
+            width: 98%;
+            cursor: default;
+            border-radius: 10px;
+            }
+
+        .search-input.active .autocom-box li{
+            display: block;
+            }
+        .autocom-box li:hover{
+            background: rgba(255, 255, 255, 0.2);  /* Semi-transparent white */
+            
+            }
+        .search_icon{
+            position: inherit;
+            color: #644bff;
+            font-size: 20px;
+            right: 0px;
+            /* top: 0px; */
+            text-align: right;
+        }
+
+        /* General scrollbar styles */
+        ::-webkit-scrollbar {
+            width: 12px; /* Width of vertical scrollbar */
+            height: 12px; /* Height of horizontal scrollbar */
+        }
+
+        /* Track (background) */
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2); /* Light background for track */
+            border-radius: 10px; /* Rounded corners for track */
+        }
+
+        /* Draggable part of the scrollbar */
+        ::-webkit-scrollbar-thumb {
+            background: #888; /* Color of the draggable part */
+            border-radius: 10px; /* Rounded corners for thumb */
+        }
+
+        /* Hover effect for thumb */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Darker color on hover */
+        }
+        .scrollable-element {
+            overflow-y: scroll; /* Allows vertical scrolling */
+            scrollbar-width: none; /* For Firefox */
+        }
+
+        .scrollable-element::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and Opera */
+        }
+
+        
+        .candle_container p{
+            color: white;
+            /* margin-right: 100px; */
+            
+
+        }
+
+
+        .chart_legend {
+            display: flex;
+            gap: 20px; /* Space between legend items */
+            margin-top: 1px;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .legend_item {
+            display: flex;
+            /* align-items: center; */
+            align-items: center;
+            gap: 5px; /* Space between the line and text */
+        }
+
+        .legend_line {
+            display: inline-block;
+            width: 40px; /* Adjust width of the line */
+            height: 4px; /* Adjust thickness of the line */
+            border-radius: 2px; /* Slightly rounded corners */
+        }
+
+        .chart_tooltip {
+            position: absolute;
+            display: none;
+            background: rgba(0, 0, 0, 0.550);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 10;
+        }
+                
+        .basic-report {
+            /*border: 2px solid rgb(192, 75, 157); *//* Border color */
+            /*background-color: rgba(214, 231, 231, 0.877); *//* Optional: background color for better visibility */
+            /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+            
+            background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+            border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+            
+            
+            /* padding: 5px;          Space between the border and the canvas */
+            /* margin: 10px 0;        Space around the chart section */
+            border-radius: 15px;    /* Adjust as needed for rounding */    
+            height: 250px;         /* Set height */
+            max-width: 95%;
+            display: block;         /* Flexbox to center content if needed */
+            justify-content: center; /* Center horizontally */
+            align-items: center;   /* Center vertically */
+            /* width: 98%; Full width */
+            /* color: white; Text color */
+            margin-bottom: 20px; /* Margin below the box */
+            position: relative; /*Needed for positioning the pseudo-element*/
+            margin: 0 auto;
+            padding: 10px;
+            margin-right: 20px;
+            margin-left: 20px;
+            margin-top: 15px;
+
+        }
+        
+    </style>
+</head>
+
+<body>
+	{% include 'navbar.html' %}
+	<div class="contents">
+        
+        <h1>Detailed Fundamental Analysis</h1>
+        
+            <div class="search-box">
+                <div class="search-input">
+                    <form method="POST" action="/basic_analysis_n">
+                        <input type="text" id="symbol-input" name="symbol" placeholder="Type to search.." autocomplete="off">
+                        <div class="autocom-box">
+                            <!-- Suggestions will be inserted here -->
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            
+        <div class="candle_container">
+            <h4>{{ script_name }}</h4>
+            
+            <div id="candle_chart" class="candle_chart">
+                
+            <div id="chart_tooltip" class="chart_tooltip"></div>
+            </div>
+            <div class="chart_legend">
+                
+                <span class="legend_item">
+                    <span class="legend_line" style="background-color: red;"></span> Delivery % 
+                </span>
+                <span class="legend_item">
+                    <span class="legend_line" style="background-color: purple;"></span>Avergare Delivery %
+                </span>
+                <span class="legend_item">
+                    <span class="legend_line" style="background-color: green;"></span>Per Order Amount(POA)
+                </span>
+                <span class="legend_item">
+                    <span class="legend_line" style="background-color:blue;"></span>Avergare of POA
+                </span>
+            </div>
+        </div>
+
+        <div class="basic-report">
+            <h4>Basic Financial Report </h4>
+            
+            </div>
+            
+            
+    </div>
+	<script>
+ //  ---------------------------------------------        
+// Candle Stick Chart
+
+		const data = {{ isin_daily_df | tojson }};
+        const chartData = data.map(item => {
+            // Explicitly parse the date string
+            const parsedDate = new Date(item.time); // 'time' should be in a standard format (e.g., 'YYYY-MM-DD')
+            const unixTimestamp = Math.floor(parsedDate.getTime() / 1000); // Convert to Unix timestamp
+            return {
+                time: unixTimestamp, // Use the corrected timestamp
+                open: item.open,
+                high: item.high,
+                low: item.low,
+                close: item.close,
+                volume: item.sum_del_qty,
+            };
+        });
+
+        const chart = LightweightCharts.createChart(document.getElementById('candle_chart'), {
+            rightPriceScale: {
+                visible: true,
+            },
+            leftPriceScale: {
+                visible: true,
+            },
+            layout: {
+                backgroundColor: '#ffffff',
+                textColor: '#000000',
+                background: { color: "#FFFFFF4D" },
+            },
+            grid: {
+                vertLines: { color: '#e1e1e1' },
+                horzLines: { color: '#e1e1e1' },
+            },
+            priceScale: {
+                borderColor: '#cccccc',
+            },
+            timeScale: {
+                borderColor: '#cccccc',
+                timeVisible: true,
+                secondsVisible: false, // Show only date and time
+                tickMarkFormatter: (timestamp) => {
+                    // Convert the timestamp to a human-readable date
+                    const date = new Date(timestamp * 1000); // Convert to milliseconds
+                    // return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                    return date.toLocaleDateString('en-IN', { day: 'numeric',  month: 'short', year: 'numeric' });
+                }
+            },
+            crosshair: {
+                horzLine: { visible: false, labelVisible: false },
+                vertLine: { labelVisible: false },
+            },
+            height: 550,
+        });
+
+        
+        // Candlestick Series
+        const candlestickSeries = chart.addSeries(LightweightCharts.CandlestickSeries);
+        
+        candlestickSeries.setData(chartData);
+//----------------------------------------        
+        // Volume Series
+        const volumeSeries = chart.addSeries(LightweightCharts.HistogramSeries,{
+            color: '#26a69a',
+            priceLineVisible: false,
+            priceFormat: { type: 'volume' },
+            priceScaleId: '',
+        });
+
+        volumeSeries.priceScale().applyOptions({
+            scaleMargins: {
+                top: 0.7,
+                bottom: 0,
+            },
+        });
+
+        const volumeData = data.map(item => ({
+            time: item.time,
+            value: item.sum_del_qty,
+        }));
+        volumeSeries.setData(volumeData);
+//----------------------------------------
+        // Line Series for deli_percentage
+        const deliPercentageSeries = chart.addSeries(LightweightCharts.LineSeries,{
+        // deliPercentageSeries = chart.addLineSeries({
+            color: '#ff0000', // Red color
+			lineWidth: 2,
+            priceScaleId: 'left',
+            priceLineVisible: false,
+
+			
+        });
+
+        const deliPercentageData = data.map(item => ({
+            time: item.time,
+            value: item.del_per,
+        }));
+        deliPercentageSeries.setData(deliPercentageData);
+//----------------------------------------
+        // Line Series for avg_del_perc
+        const avgDelPercSeries = chart.addSeries(LightweightCharts.LineSeries,{
+            // color: '#0000ff', // Blue color
+            // color: '#ff0000', // Red color
+            color:  '#8e24aa',
+            lineWidth: 2,
+            priceScaleId: 'left',
+            lineStyle: LightweightCharts.LineStyle.Dashed,
+            priceLineVisible: false,
+        });
+
+        const avgDelPercData = data.map(item => ({
+            time: item.time,
+            value: item.avg_del_perc,
+        }));
+        avgDelPercSeries.setData(avgDelPercData);
+//----------------------------------------
+        // Line Series for avg_order_worth
+        const avgOrderWorthSeries = chart.addSeries(LightweightCharts.LineSeries,{
+            color: '#008000', // Green color
+            // color: '#0000ff', // Blue color
+            lineWidth: 2,
+            priceScaleId: 'left',
+            priceLineVisible: false,
+        });
+
+        const avgOrderWorthData = data.map(item => ({
+            time: item.time,
+            value: item.avg_order_price,
+        }));
+        avgOrderWorthSeries.setData(avgOrderWorthData);
+//----------------------------------------
+        // Line Series for avg_of_etw
+        const avgOfEtwSeries = chart.addSeries(LightweightCharts.LineSeries,{
+            // color: '#ffa500', // Orange color
+            color: '#0000ff', // Blue color
+            lineWidth: 2,
+            priceScaleId: 'left',
+            lineStyle: LightweightCharts.LineStyle.Dashed,
+            priceLineVisible: false,
+        });
+
+        const avgOfEtwData = data.map(item => ({
+            time: item.time,
+            value: item.avg_of_aop,
+        }));
+        avgOfEtwSeries.setData(avgOfEtwData);
+//----------------------------------------
+        // Adjust left price scale for line charts
+        chart.priceScale('left').applyOptions({
+            scaleMargins: {
+                top: 0.6, // 10% space at the top
+                bottom: 0.2, // 10% space at the bottom
+                // Make sure it's adjustable
+                visible: true,
+            },
+			handleScroll: {
+            borderColor: '#cccccc',
+			
+			
+			},
+        });
+
+        // Ensure right price scale for candlestick chart
+        chart.priceScale('right').applyOptions({
+            visible: true, // Make the right scale visible
+            borderColor: '#cccccc',
+        });
+           
+// ---------------------------
+        
+// ---------------------------
+    </script>
+    
+
+    <script>
+      
+       // TOOLTIP FOR CHART
+        
+       const tooltip = document.getElementById('chart_tooltip');
+
+        chart.subscribeCrosshairMove(function(param) {
+            if (!param || !param.time || !param.point || !param.seriesData) {
+                tooltip.style.display = 'none';
+                return;
+            }
+
+            // Access candlestick data at the crosshair point
+            const price = param.seriesData.get(candlestickSeries);
+
+            const deli_data = param.seriesData.get(volumeSeries);
+            const deli_data_p = param.seriesData.get(deliPercentageSeries);
+            const deli_data_a= param.seriesData.get(avgDelPercSeries);
+            const deli_data_o= param.seriesData.get(avgOrderWorthSeries);
+            const deli_data_oa= param.seriesData.get(avgOfEtwSeries);
+            
+            
+
+            
+            if (!price) {
+                tooltip.style.display = 'none';
+                return;
+            }
+            
+            // Get chart element and its dimensions
+            const chartElement = document.querySelector('.candle_chart');
+            const chartRect = chartElement.getBoundingClientRect();
+
+            // Show and position the tooltip
+            tooltip.style.display = 'block';
+            tooltip.style.left = (param.point.x + chartRect.left + window.pageXOffset -150) + 'px';
+            tooltip.style.top = (param.point.y + chartRect.top + window.pageYOffset-380) + 'px';
+
+            // Format the tooltip content
+            // <div>Date: ${new Date(param.time * 1000).toISOString().slice(0, 19).replace('T', ' ')}</div>
+            tooltip.innerHTML = `
+                
+                <div>Date: ${new Date(param.time * 1000).toLocaleDateString('en-IN', { day: 'numeric',  month: 'short', year: 'numeric' })}</div>
+                <div>Open: ${price.open.toFixed(2)}</div>
+                <div>High: ${price.high.toFixed(2)}</div>
+                <div>Low: ${price.low.toFixed(2)}</div>
+                <div>Close: ${price.close.toFixed(2)}</div>
+                <div>Del. Qty: ${deli_data.value}</div>
+                <div>Del. %: ${deli_data_p.value.toFixed(2)}</div>
+                <div>Per Order Amount: ${deli_data_o.value.toFixed(2)}</div>
+                <div>Avg. Del. %: ${deli_data_a.value.toFixed(2)}</div>
+                <div>Avg. POA: ${deli_data_oa.value.toFixed(2)}</div>
+                
+            `;
+        });
+
+
+    </script>
+    <script>
+        // getting all required elements
+        const searchWrapper = document.querySelector(".search-input");
+        const inputBox = searchWrapper.querySelector("input");
+        const suggBox = searchWrapper.querySelector(".autocom-box");
+        const icon = searchWrapper.querySelector(".search_icon");
+        
+        let suggestions = {{ all_symbols|tojson }}; // Populate suggestions from Flask
+        
+        // if user presses any key and releases
+        inputBox.onkeyup = (e) => {
+            let userData = e.target.value; // user entered data
+            let emptyArray = [];
+            
+            if (userData) {
+                emptyArray = suggestions.filter((data) => {
+                    // filtering array value and user characters to lowercase and return only those words which start with user entered chars
+                    return data.toLowerCase().startsWith(userData.toLowerCase());
+                });
+                
+                emptyArray = emptyArray.map((data) => {
+                    // passing return data inside li tag
+                    return `<li>${data}</li>`;
+                });
+                
+                searchWrapper.classList.add("active"); // show autocomplete box
+                showSuggestions(emptyArray);
+                
+                let allList = suggBox.querySelectorAll("li");
+                for (let i = 0; i < allList.length; i++) {
+                    // adding onclick attribute in all li tags
+                    allList[i].setAttribute("onclick", "select(this)");
+                }
+            } else {
+                searchWrapper.classList.remove("active"); // hide autocomplete box
+            }
+        }
+        
+        function select(element) {
+            let selectData = element.textContent;
+            inputBox.value = selectData; // Set the input box value to the selected symbol
+            searchWrapper.classList.remove("active"); // Hide suggestions
+            
+            // Trigger form submission
+            const form = searchWrapper.querySelector('form');
+            form.submit(); // Submit the form
+        }
+        
+        function showSuggestions(list) {
+            let listData;
+            
+            if (!list.length) {
+                listData = `<li>No suggestions found</li>`;
+            } else {
+                listData = list.join('');
+            }
+            
+            suggBox.innerHTML = listData;
+        }
+
+
+    </script>
+</body>
+</html>
+
+
+

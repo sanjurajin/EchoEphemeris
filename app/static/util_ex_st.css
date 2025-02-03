@@ -1,0 +1,262 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+     background: linear-gradient(135deg, 
+        #e53935 5%,  /* Red */
+        #d81b60 20%,  /* Pink */
+        #8e24aa 50%,  /* Purple */
+        #1e88e5 70%,  /* Blue */
+        #42a5f5 85%,  /* Light Blue */
+        #26c6da 100%  /* Cyan */
+        );
+    
+    background-size: 200% 200%;
+    /*animation: gradientBackground 15s ease infinite;*/
+}
+
+.contents {
+    flex-grow: 1;
+    padding: 20px;
+    margin-top: 40px;
+    display: flexbox;
+    }
+
+/* General styles for the search box */
+.search-input input{
+    height: 45px;
+    width: 98%;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    /* padding: 0 60px 0 20px; */
+    font-size: 18px;
+    /* box-shadow: 0px 1px 5px rgba(0,0,0,0.1); */
+    background: rgba(255, 255, 255, 0.2);  /* Semi-transparent white */
+    backdrop-filter: blur(10px);  /* Frosted glass effect with blur */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    align-items: center;  /* Center items vertically */
+    
+}
+
+h1 {
+    margin: 0; /* Remove margin from h3 */
+    text-align: left;
+    color: white;
+    z-index: 1000;   
+    
+}
+
+.flex-box {
+    display: flex;                   /* Use Flexbox for layout */
+    justify-content: space-between; /* Distribute space between the boxes */
+    align-items: flex-start;        /* Align items at the start */
+    width: 100%;                    /* Full width */
+	
+    /*border: 1px solid #ccc; */        /* Add a border */
+    border-radius: 8px;
+    /*background-color: rgba(214, 231, 231, 0.877);*/
+
+	background-color: rgba(255, 255, 255, 0.5);  /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+	
+}
+
+
+.selection, .new-symbol  {
+    flex: 1;                        /* Flex-grow to fill available space */
+    padding: 20px;                 /* Optional: Add some padding */
+    margin: 10px;                  /* Optional: Add margin for spacing */
+    /*background-color: #f9f9f9;   */  /* Optional: Background color */
+    border-radius: 8px;            /* Optional: Rounded corners */
+    
+    /*background-color: rgba(214, 231, 231, 0.877);*/
+    /*background-color: rgba(214, 231, 231, 0.877);*/
+	/*border: 1px solid #ccc;          Add a border */
+	/*box-shadow: 0 2px 4px rgba(0,0,0,0.1); *//* Optional: Add some shadow for depth */
+	
+	
+	background-color: rgba(255, 255, 255, 0.3);  /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+
+	
+	
+}
+
+.selection {
+    margin-right: 20px;            /* Space between structures */
+}
+
+
+h4 {
+    margin: 0 0 10px 0; /* Add some space below the heading */
+}
+
+
+/* ------------------------------ */
+/* For BSE NSE Update page */
+
+.download_box, .update_business_days, .update_database {
+    flex: 1;                        /* Flex-grow to fill available space */
+    padding: 20px;                 /* Optional: Add some padding */
+    margin: 10px;                  /* Optional: Add margin for spacing */
+    border-radius: 8px;            /* Optional: Rounded corners */
+    background-color: rgba(255, 255, 255, 0.3);  /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+    margin-right: 20px;            /* Space between structures */
+	
+}
+.download_box input, .update_database input{
+    margin-bottom: 10px; /* Space between the lines */
+
+}
+.download_box h5, .update_business_days p, .update_database h5 {
+    /* color: black;white;  White color */
+    margin-top: 0; /* No margin from the top */
+    margin-bottom: 5px; /* No margin from the top */
+    color: #242323;/* black;*/
+    
+    font-weight: normal;
+    font-size: medium;
+
+}
+/* Center the submit button */
+.download_box button, .update_business_days button, .update_database button {
+    display: block; /* Make it a block element */
+    margin: 0 auto; /* Center the button horizontally */
+    padding: 10px 20px; /* Add some padding */
+    background-color: white; /* Bootstrap primary color */
+    color: #333; /* Text color */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+    
+}
+/* Hover effect for button */
+.download_box button:hover, .update_business_days button:hover, .update_database button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    color: white; /* Text color */
+}
+
+
+.update_business_days button {
+
+    margin-bottom: 0px;
+}
+
+.search-input input{
+    height: 45px;
+    width: 98%;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    /* padding: 0 60px 0 20px; */
+    font-size: 18px;
+    /* box-shadow: 0px 1px 5px rgba(0,0,0,0.1); */
+    background: rgba(255, 255, 255, 0.2);  /* Semi-transparent white */
+    backdrop-filter: blur(10px);  /* Frosted glass effect with blur */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Soft shadow for depth */
+    align-items: center;  /* Center items vertically */
+    
+    }
+/* .search-input.active input{
+    border-radius: 5px 5px 0 0;
+    } */
+.search-input .autocom-box{
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    max-height: 280px;
+    width: 98%;
+    overflow-y: auto;
+    border-radius: 15px;
+    }
+    
+.search-input.active .autocom-box{
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+    }
+
+.autocom-box li{
+    list-style: none;
+    
+    padding: 8px 12px;
+    display: none;
+    width: 98%;
+    cursor: default;
+    border-radius: 10px;
+    }
+
+.search-input.active .autocom-box li{
+    display: block;
+    }
+.autocom-box li:hover{
+    background: rgba(255, 255, 255, 0.2);  /* Semi-transparent white */
+    
+    }
+.search_icon{
+    position: inherit;
+    color: #644bff;
+    font-size: 20px;
+    right: 0px;
+    /* top: 0px; */
+    text-align: right;
+}
+
+/* General scrollbar styles */
+::-webkit-scrollbar {
+    width: 12px; /* Width of vertical scrollbar */
+    height: 12px; /* Height of horizontal scrollbar */
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.2); /* Light background for track */
+    border-radius: 10px; /* Rounded corners for track */
+}
+
+/* Draggable part of the scrollbar */
+::-webkit-scrollbar-thumb {
+    background: #888; /* Color of the draggable part */
+    border-radius: 10px; /* Rounded corners for thumb */
+}
+
+/* Hover effect for thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Darker color on hover */
+}
+.scrollable-element {
+    overflow-y: scroll; /* Allows vertical scrolling */
+    scrollbar-width: none; /* For Firefox */
+}
+
+.scrollable-element::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+
+
+
+.search-box {
+    height: auto ;
+    border: 2px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    
+	/*border: 1px solid #ccc;*/
+	/*background-color: rgba(214, 231, 231, 0.877);*/
+    
+		
+	background-color: rgba(255, 255, 255, 0.3);  /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Soft white border */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* Light shadow for depth */
+
+}
