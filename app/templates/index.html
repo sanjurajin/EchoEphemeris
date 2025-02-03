@@ -1,0 +1,67 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
+    
+    <title>My Deshboard</title>
+    <style>
+            
+        
+
+    </style> 
+</head>
+<body>
+    
+
+    <div class="main">
+        <h1>My Deshboard</h1>
+        <h1> To be updated shortly .......</h1>
+        
+        <div class="last_trade_dates">
+        </div>
+        <div class="current_status">
+            <div class="open_positions">
+                
+                 <canvas id="openTradesChart" ></canvas>
+            </div>
+
+         
+            <div class = "goal_mark_chart">
+                
+                <canvas id="goal_chart"></canvas>
+            </div>
+        
+        </div>
+
+        <div class="win_loss-container">
+            <div class="gauge_container">
+                
+                <div id="gauge" >
+                </div> 
+            </div>
+        
+            <div class="win_loss-bar-container"> 
+                </div>
+            </div>
+            <div class="polar_chart-container">
+                <canvas id="polar_pnl" class="polar-canvas"></canvas>
+            </div>
+        </div>
+        <div class="equity_curve_chart">
+            
+            <canvas id="equityCurveChart"></canvas>
+        </div>  
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>
