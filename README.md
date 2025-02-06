@@ -11,9 +11,9 @@ Made for personal use (Arvind Bhai inspired me).
         Installation Help
         https://www.enterprisedb.com/docs/supported-open-source/postgresql/installing/windows/
         Note :- i. Installation Location -  
-                ![Keep Default location](image-2.png)
+![Keep Default location](image-2.png)
                 ii. It will ask location for Data Directory, Change it where you want the database to be like D Drive.
-                ![Data Directory Location](image-1.png)
+![Data Directory Location](image-1.png)
                 iii. Ensure to put Password during installation, It is essential
                 
 # Other optional installations
@@ -31,7 +31,7 @@ Made for personal use (Arvind Bhai inspired me).
 <!--  -->
 # Now the SETUP Phase
 
-# 1. Get Project Folder
+## 1. Get Project Folder
         Clone Method
         Open GitHub Desktop
         Click on File --> Clone Repository
@@ -40,7 +40,7 @@ Made for personal use (Arvind Bhai inspired me).
         Manual Method
         Click on Code (see above) and Download Zip
         Extract the Folder somewher (This location will be used more frequent)
-        ![Keep Default location](image.png)
+![Keep Default location](image.png)
 
 
 ## 2. Open the folder (Extracted or Cloned)
