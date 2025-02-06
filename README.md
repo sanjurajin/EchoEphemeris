@@ -35,16 +35,18 @@ Made for personal use (Arvind Bhai inspired me).
         Manual Method
         Click on Code (see above) and Download Zip
         Extract the Folder somewher (This location will be used more frequent)
-        ![alt text](image.png)
+        ![Keep Default location](image.png)
 
         Clone Method
         Open GitHub Desktop
         Click on File --> Clone Repository
         enter repo address & Clone
 
-## 2. Open this exctracted folder (I will call it EchoEphemeris) & open file creden.txt
+## 2. Open the folder (Extracted or Cloned)
+        Go to file creden.txt at \EchoEphemeris\app
         replace third line my_password with your password, you entered during PostgreSQL Installation
-## 3. Open Command Prompt/Power Shell and go to extracted folder ![alt text](image-3.png)
+## 3. Open Command Prompt/Power Shell and go to extracted folder
+ ![alt text](image-3.png)
 ## 4. write below commands one by one and enter
         py -m venv venv
         .\venv\Scripts\activate
