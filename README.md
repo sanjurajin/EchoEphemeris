@@ -31,16 +31,17 @@ Made for personal use (Arvind Bhai inspired me).
 <!--  -->
 # Now the SETUP Phase
 
-## 1. Get Project Folder
+# 1. Get Project Folder
+        Clone Method
+        Open GitHub Desktop
+        Click on File --> Clone Repository
+        enter repo address & Clone
+
         Manual Method
         Click on Code (see above) and Download Zip
         Extract the Folder somewher (This location will be used more frequent)
         ![Keep Default location](image.png)
 
-        Clone Method
-        Open GitHub Desktop
-        Click on File --> Clone Repository
-        enter repo address & Clone
 
 ## 2. Open the folder (Extracted or Cloned)
         Go to file creden.txt at \EchoEphemeris\app
