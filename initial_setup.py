@@ -24,10 +24,10 @@ else:
     var_2e48e91c = var_631aada4[2]
 var_262e59d9 = os.path.join(cwd, 'app', 'data', 'exch_files', 'initail_setup.csv')
 sa_89a8394b = pd.read_csv(var_262e59d9)
-
+ 
 def sa_e342d3f6():
     zx_4780fc62 = {'dbname': var_b4c16391, 'user': zx_a0e71f8f, 'password': var_2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{zx_4780fc62['user']}:{zx_4780fc62['password']}@{zx_4780fc62['host']}:{zx_4780fc62['port']}/{zx_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{zx_4780fc62['user']}:{zx_4780fc62['password']}@{zx_4780fc62['host']}:{zx_4780fc62['port']}/{zx_4780fc62['dbname']}"
     engine = create_engine(conn_string)
     query = 'SELECT isin FROM my_static_data'
     zx_ae9a54ec = pd.read_sql_query(query, engine)
@@ -52,11 +52,11 @@ def sa_f8551387(sa_89a8394b):
         sys.exit()
     zx_69f08581 = sa_e342d3f6()
     zx_f290001d = sa_eaeb8393[~sa_eaeb8393['isin'].isin(zx_69f08581)]
-    if not zx_f290001d.empty:
-        print(f'----------Missing Data ------------')
-        print(f'{zx_f290001d}')
+    # if not zx_f290001d.empty:
+    #     # print(f'----------Missing Data ------------')
+    #     # print(f'{zx_f290001d}')
     zx_4780fc62 = {'dbname': var_b4c16391, 'user': zx_a0e71f8f, 'password': var_2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{zx_4780fc62['user']}:{zx_4780fc62['password']}@{zx_4780fc62['host']}:{zx_4780fc62['port']}/{zx_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{zx_4780fc62['user']}:{zx_4780fc62['password']}@{zx_4780fc62['host']}:{zx_4780fc62['port']}/{zx_4780fc62['dbname']}"
     engine = create_engine(conn_string)
     if not zx_f290001d.empty:
         zx_f290001d.to_sql('my_static_data', engine, if_exists='append', index=False)
@@ -85,7 +85,7 @@ def xe8c0a0a9(sa_89a8394b):
     for col in sa_4749223f:
         zx_f33bad8d[col] = pd.to_numeric(zx_f33bad8d[col], errors='coerce').astype(float)
     zx_4780fc62 = {'dbname': var_b4c16391, 'user': zx_a0e71f8f, 'password': var_2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{zx_4780fc62['user']}:{zx_4780fc62['password']}@{zx_4780fc62['host']}:{zx_4780fc62['port']}/{zx_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{zx_4780fc62['user']}:{zx_4780fc62['password']}@{zx_4780fc62['host']}:{zx_4780fc62['port']}/{zx_4780fc62['dbname']}"
     engine = create_engine(conn_string)
     try:
         zx_f33bad8d.to_sql('my_daily_data', engine, if_exists='append', index=False)

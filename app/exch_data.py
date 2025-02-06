@@ -1,3 +1,7 @@
+
+import json
+import base64
+
 import pandas as pd
 import requests
 import zipfile
@@ -7,10 +11,17 @@ from datetime import datetime
 import time
 from sqlalchemy import create_engine
 cwd = os.getcwd()
+_bh5lj = os.path.join(cwd,'app','data','spec')
+with open(os.path.join(_bh5lj,'c_end.json'), 'r') as f:
+    eazhdj_jasf = f.read()
+dh78ah = base64.b64decode(eazhdj_jasf).decode()
+config = json.loads(dh78ah)
+sym_col = config['columns']
 import numpy as np
 import psycopg2
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.exc import IntegrityError
+
 if os.getlogin() == 'sanju':
     x33b379a7 = os.path.join(cwd, 'personal_data', 'creden.txt')
     zx_631aada4 = open(x33b379a7, 'r').read().split()
@@ -23,10 +34,10 @@ else:
     _b4c16391 = zx_631aada4[0]
     sa_a0e71f8f = zx_631aada4[1]
     _2e48e91c = zx_631aada4[2]
-
+pt3 = f'/'+ 'BhavCopy_BSE_CM_0_0_0_'
 def sa_49e00907():
     var_4780fc62 = {'dbname': _b4c16391, 'user': sa_a0e71f8f, 'password': _2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{var_4780fc62['user']}:{var_4780fc62['password']}@{var_4780fc62['host']}:{var_4780fc62['port']}/{var_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{var_4780fc62[sym_col[70]]}:{var_4780fc62[sym_col[40]]}@{var_4780fc62[sym_col[29]]}:{var_4780fc62[sym_col[41]]}/{var_4780fc62[sym_col[17]]}"
     engine = create_engine(conn_string)
     query = '\n    SELECT *\n    FROM my_static_data\n    '
     try:
@@ -37,14 +48,15 @@ def sa_49e00907():
         engine.dispose()
         print('Database connection closed.')
     zx_f1016f82.columns
-    zx_f1016f82['tckrsymb'] = zx_f1016f82['tckrsymb'].fillna(zx_f1016f82['tckrsymb_b'])
-    zx_f1016f82 = zx_f1016f82.sort_values(by='fininstrmnm')
+    zx_f1016f82[sym_col[58]] = zx_f1016f82[sym_col[58]].fillna(zx_f1016f82[sym_col[59]])
+    zx_f1016f82 = zx_f1016f82.sort_values(by=sym_col[25])
     zx_f1016f82 = zx_f1016f82.reset_index()
-    sa_9e99a581 = zx_f1016f82[['tckrsymb', 'fininstrmnm', 'isin']]
+    sa_9e99a581 = zx_f1016f82[[sym_col[58], sym_col[25], sym_col[30]]]
     zx_ce535d10 = pd.DataFrame()
-    zx_ce535d10['symbol_name'] = sa_9e99a581['tckrsymb'] + ' :- ' + sa_9e99a581['fininstrmnm'] + '  ' + sa_9e99a581['isin']
-    var_40025d04 = zx_ce535d10['symbol_name'].tolist()
+    zx_ce535d10[sym_col[57]] = sa_9e99a581[sym_col[58]] + ' :- ' + sa_9e99a581[sym_col[25]] + '  ' + sa_9e99a581[sym_col[30]]
+    var_40025d04 = zx_ce535d10[sym_col[57]].tolist()
     return var_40025d04
+loc2bh = 'mto/MTO_'
 
 def zx_57414141(sa_b76a7ca1):
     try:
@@ -53,7 +65,7 @@ def zx_57414141(sa_b76a7ca1):
         xfe80de81 = zx_d887db09[1].strip().rsplit(' ', 1)[0]
         var_7813612d = zx_d887db09[1].strip().rsplit(' ', 1)[1]
         var_4780fc62 = {'dbname': _b4c16391, 'user': sa_a0e71f8f, 'password': _2e48e91c, 'host': 'localhost', 'port': '5432'}
-        conn_string = f'postgresql+psycopg2://{var_4780fc62['user']}:{var_4780fc62['password']}@{var_4780fc62['host']}:{var_4780fc62['port']}/{var_4780fc62['dbname']}'
+        conn_string = f"postgresql+psycopg2://{var_4780fc62[sym_col[70]]}:{var_4780fc62[sym_col[40]]}@{var_4780fc62[sym_col[29]]}:{var_4780fc62[sym_col[41]]}/{var_4780fc62[sym_col[17]]}"
         engine = create_engine(conn_string, connect_args={'connect_timeout': 10})
         query = '\n            SELECT * FROM my_daily_data\n            WHERE isin = %(isin)s\n        '
         with engine.connect().execution_options(timeout=30) as connection:
@@ -61,19 +73,19 @@ def zx_57414141(sa_b76a7ca1):
         if xf33bad8d.empty:
             print(f'No data found for ISIN: {var_7813612d}')
             return (pd.DataFrame(), 'None')
-        xf33bad8d['traddt'] = pd.to_datetime(xf33bad8d['traddt'], dayfirst=True)
-        xf33bad8d['time'] = xf33bad8d['traddt']
-        xf33bad8d = xf33bad8d.sort_values(by='time')
-        xf33bad8d = xf33bad8d.drop(columns=['traddt'])
-        var_6c4662bd = xf33bad8d['sum_delvry_trnovr'].sum()
-        zx_42e21f40 = xf33bad8d['sum_ttltrfval'].sum()
+        xf33bad8d[sym_col[61]] = pd.to_datetime(xf33bad8d[sym_col[61]], dayfirst=True)
+        xf33bad8d[sym_col[60]] = xf33bad8d[sym_col[61]]
+        xf33bad8d = xf33bad8d.sort_values(by=sym_col[60])
+        xf33bad8d = xf33bad8d.drop(columns=[sym_col[61]])
+        var_6c4662bd = xf33bad8d[sym_col[53]].sum()
+        zx_42e21f40 = xf33bad8d[sym_col[56]].sum()
         _87651205 = var_6c4662bd * 100 / zx_42e21f40
-        xf33bad8d['avg_del_perc'] = _87651205.round(4)
-        _67b2649f = xf33bad8d['avg_order_price'].mean().round(2)
-        xf33bad8d['avg_order_price'] = (xf33bad8d['avg_order_price'] / 1000).round(3)
-        xf33bad8d['avg_of_aop'] = _67b2649f
-        xf33bad8d['avg_of_aop'] = (xf33bad8d['avg_of_aop'] / 1000).round(3)
-        xf33bad8d['sum_delvry_trnovr'] = (xf33bad8d['sum_delvry_trnovr'] / 1000000).round(3)
+        xf33bad8d[sym_col[6]] = _87651205.round(4)
+        _67b2649f = xf33bad8d[sym_col[8]].mean().round(2)
+        xf33bad8d[sym_col[8]] = (xf33bad8d[sym_col[8]] / 1000).round(3)
+        xf33bad8d[sym_col[7]] = _67b2649f
+        xf33bad8d[sym_col[7]] = (xf33bad8d[sym_col[7]] / 1000).round(3)
+        xf33bad8d[sym_col[53]] = (xf33bad8d[sym_col[53]] / 1000000).round(3)
         xf33bad8d.rename(columns={'opnpric': 'open', 'hghpric': 'high', 'lwpric': 'low', 'clspric': 'close'}, inplace=True)
         xf33bad8d = xf33bad8d.reindex(columns=['time', 'open', 'high', 'low', 'close', 'sum_delvry_trnovr', 'del_per', 'avg_order_price', 'avg_del_perc', 'sum_del_qty', 'avg_of_aop', 'events'])
         return (xf33bad8d, xfe80de81)
@@ -90,7 +102,7 @@ def zx_57414141(sa_b76a7ca1):
         except:
             pass
 sa_6e998b78 = os.path.join(cwd, 'app', 'data', 'exch_files')
-
+loc1bh = "BhavCopy_NSE_CM_0_0_0_"
 def var_a2cc7414():
     var_d5d49ccf = os.path.join(cwd, 'app', 'data', 'exch_files', 'calander_file.csv')
     _9f481db4 = pd.read_csv(var_d5d49ccf)
@@ -98,9 +110,29 @@ def var_a2cc7414():
     zx_2f6adb17 = pd.to_datetime(zx_2f6adb17[0], format='%d-%b-%y').strftime('%d-%m-%Y')
     return zx_2f6adb17
 
+def _sajc8dhks():
+    with open(os.path.join(_bh5lj,'c_ur.json'), 'r') as f:
+        config = json.load(f)
+    encoded_loc1 = config['encoded_loc1']
+    encoded_loc2 = config['encoded_loc2']
+    encoded_olb = config['encoded_olb']
+    encoded_web = config['encoded_web']
+    encoded_loc3 = config['encoded_loc3']
+    encoded_olz = config['encoded_olz']
+    encoded_hjxo = config['encoded_hjxo']
+    loc1 = base64.b64decode(encoded_loc1).decode()
+    loc2 = base64.b64decode(encoded_loc2).decode()
+    olb = base64.b64decode(encoded_olb).decode()
+    web = base64.b64decode(encoded_web).decode()
+    loc3 = base64.b64decode(encoded_loc3).decode()
+    olz = base64.b64decode(encoded_olz).decode()
+    hjxo = base64.b64decode(encoded_hjxo).decode()
+
+    return loc1, loc2, olb, web,  loc3, olz, hjxo
+
 def xe4d70624(x0987903c):
-    sa_67392fd3 = pd.DataFrame(x0987903c, columns=['Date'])
-    sa_67392fd3['Date'] = pd.to_datetime(sa_67392fd3['Date'], format='%d-%m-%Y', dayfirst=True).dt.strftime('%d-%b-%y')
+    sa_67392fd3 = pd.DataFrame(x0987903c, columns=[sym_col[2]])
+    sa_67392fd3[sym_col[2]] = pd.to_datetime(sa_67392fd3[sym_col[2]], format='%d-%m-%Y', dayfirst=True).dt.strftime('%d-%b-%y')
     var_d5d49ccf = os.path.join(cwd, 'app', 'data', 'exch_files', 'calander_file.csv')
     sa_67392fd3.to_csv(var_d5d49ccf, mode='a', header=False, index=False)
     zx_073c1634 = 'Date Data File Updated'
@@ -114,18 +146,18 @@ def sa_d8d918a9(var_ee01b9df, sa_24938c07):
         sa_65808d74 = var_ee01b9df.month
         sa_400bb302 = var_ee01b9df.year
         xe3c9de4d = sa_a64995fe(sa_65808d74, sa_400bb302)
-        xe3c9de4d['Date_type'] = pd.to_datetime(xe3c9de4d['Date_type'])
-        xe3c9de4d = xe3c9de4d[(xe3c9de4d['Date_type'] >= var_ee01b9df) & (xe3c9de4d['Date_type'] <= sa_24938c07)]
+        xe3c9de4d[sym_col[3]] = pd.to_datetime(xe3c9de4d[sym_col[3]])
+        xe3c9de4d = xe3c9de4d[(xe3c9de4d[sym_col[3]] >= var_ee01b9df) & (xe3c9de4d[sym_col[3]] <= sa_24938c07)]
         if not xe3c9de4d.empty:
             for index, row in xe3c9de4d.iterrows():
-                _acf3357e = row['Date_type']
-                x995b5cdf = row['bhavcopy_Date']
-                _ab710224 = row['delivery_Date']
-                var_469f4308 = row['old_date']
-                sa_cb705957 = row['year']
-                zx_f96a6410 = row['dtmonth']
+                _acf3357e = row[sym_col[3]]
+                x995b5cdf = row[sym_col[11]]
+                _ab710224 = row[sym_col[19]]
+                var_469f4308 = row[sym_col[37]]
+                sa_cb705957 = row[sym_col[71]]
+                zx_f96a6410 = row[sym_col[22]]
                 print('--------------------------')
-                print(row['Date'])
+                print(row[sym_col[2]])
                 try:
                     _372ff396(x995b5cdf, _ab710224)
                 except Exception as e:
@@ -147,20 +179,23 @@ def sa_d8d918a9(var_ee01b9df, sa_24938c07):
 def sa_a64995fe(sa_65808d74, sa_400bb302):
     var_d5d49ccf = os.path.join(cwd, 'app', 'data', 'exch_files', 'calander_file.csv')
     _9f481db4 = pd.read_csv(var_d5d49ccf)
-    _9f481db4['bhavcopy_Date'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y').dt.strftime('%Y%m%d')
-    _9f481db4['delivery_Date'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y').dt.strftime('%d%m%Y')
-    _9f481db4['Date_type'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y')
-    _9f481db4['old_date'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y').dt.strftime('%d%m%y')
-    _9f481db4['year'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y').dt.year
-    _9f481db4['date'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y').dt.day
-    _9f481db4['month'] = pd.to_datetime(_9f481db4['Date'], format='%d-%b-%y').dt.month
-    _9f481db4['dtmonth'] = _9f481db4['date'].astype(str).str.zfill(2) + _9f481db4['month'].astype(str).str.zfill(2)
-    x30ba289b = _9f481db4[(_9f481db4['Date_type'].dt.month == sa_65808d74) & (_9f481db4['Date_type'].dt.year == sa_400bb302)]
+    _9f481db4[sym_col[11]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y').dt.strftime('%Y%m%d')
+    _9f481db4[sym_col[19]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y').dt.strftime('%d%m%Y')
+    _9f481db4[sym_col[3]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y')
+    _9f481db4[sym_col[37]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y').dt.strftime('%d%m%y')
+    _9f481db4[sym_col[71]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y').dt.year
+    _9f481db4[sym_col[16]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y').dt.day
+    _9f481db4[sym_col[36]] = pd.to_datetime(_9f481db4[sym_col[2]], format='%d-%b-%y').dt.month
+    _9f481db4[sym_col[22]] = _9f481db4[sym_col[16]].astype(str).str.zfill(2) + _9f481db4[sym_col[36]].astype(str).str.zfill(2)
+    x30ba289b = _9f481db4[(_9f481db4[sym_col[3]].dt.month == sa_65808d74) & (_9f481db4[sym_col[3]].dt.year == sa_400bb302)]
     return x30ba289b
 
 def _372ff396(x995b5cdf, _ab710224):
-    xc1c8d369 = f'https://nsearchives.nseindia.com/content/cm/BhavCopy_NSE_CM_0_0_0_{x995b5cdf}_F_0000.csv.zip'
-    sa_2d3a708a = f'https://nsearchives.nseindia.com/archives/equities/mto/MTO_{_ab710224}.DAT'
+    loc1, loc2, olb, web,  loc3, olz, hjxo =_sajc8dhks()
+    loc1 = f'{loc1}/{loc1bh}'
+    xc1c8d369 = f'{loc1}{x995b5cdf}_F_0000.csv.zip'
+    loc2 =f"{loc2}/{loc2bh}"
+    sa_2d3a708a = f'{loc2}{_ab710224}.DAT'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}
     response = requests.get(xc1c8d369, headers=headers)
     zip_file_path = os.path.join(sa_6e998b78)
@@ -174,10 +209,11 @@ def _372ff396(x995b5cdf, _ab710224):
         os.remove(zip_file)
         _5fb059b2 = True
     else:
-        payload = pd.read_csv('https://archives.nseindia.com/products/content/sec_bhavdata_full_' + _ab710224 + '.csv')
+        
+        payload = pd.read_csv(f'{olb}' + _ab710224 + '.csv')
         if not payload.empty:
             payload.columns = payload.columns.str.strip()
-            payload['turnover'] = payload['AVG_PRICE'] * payload['TTL_TRD_QNTY']
+            payload[sym_col[69]] = payload[sym_col[0]] * payload[sym_col[4]]
             payload.drop(columns=['TURNOVER_LACS'], inplace=True)
             x3c1cd05a = os.path.join(sa_6e998b78, 'NSE Files', f'BhavCopy_NSE_CM_0_0_0_{x995b5cdf}_F_0000_O.csv')
             payload.to_csv(x3c1cd05a, index=False)
@@ -198,7 +234,9 @@ def _372ff396(x995b5cdf, _ab710224):
         print(f'Failed to download NSE Bhavcopy file, skipping Delivery.')
 
 def sa_877a6e13(x995b5cdf, var_469f4308, sa_cb705957, zx_f96a6410):
-    var_80f67872 = f'https://www.bseindia.com//download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{x995b5cdf}_F_0000.CSV'
+    loc1, loc2, olb, web,  loc3, olz, hjxo =_sajc8dhks()
+    var_80f67872 = f'{loc3}{pt3}{x995b5cdf}_F_0000.CSV'
+    
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'}
     response = requests.get(var_80f67872, headers=headers)
     zip_file_path = os.path.join(sa_6e998b78)
@@ -208,7 +246,7 @@ def sa_877a6e13(x995b5cdf, var_469f4308, sa_cb705957, zx_f96a6410):
             file.write(response.content)
         print('Bhavcopy_BSE completed successfully!')
     else:
-        _3ba85c2f = f'https://www.bseindia.com/download/BhavCopy/Equity/EQ_ISINCODE_{var_469f4308}.zip'
+        _3ba85c2f = f'{olz}{var_469f4308}.zip'
         response = requests.get(_3ba85c2f, headers=headers)
         if response.status_code == 200:
             file = os.path.join(sa_6e998b78, 'BSE Files', f'BhavCopy_BSE_CM_0_0_0_{x995b5cdf}_F_0000_O.csv')
@@ -217,7 +255,9 @@ def sa_877a6e13(x995b5cdf, var_469f4308, sa_cb705957, zx_f96a6410):
             print('Bhavcopy_BSE Old completed successfully!')
         else:
             print(f'Failed to download BSE Bhavcopy file')
-    _ec2f02ea = f'https://www.bseindia.com/BSEDATA/gross/{sa_cb705957}/SCBSEALL{zx_f96a6410}.zip'
+    axbhs2 = 'SCBSEALL'
+    _ec2f02ea = f'{hjxo}/{sa_cb705957}/{axbhs2}{zx_f96a6410}.zip'
+    
     response = requests.get(_ec2f02ea, headers=headers)
     if response.status_code == 200:
         _c8542847 = os.path.join(sa_6e998b78, 'BSE Files', f'SCBSEALL{x995b5cdf}.zip')
@@ -272,9 +312,9 @@ def zx_a679377a(sa_41834621, sa_65808d74, sa_400bb302):
 
 def sa_fddfefa4(var_4be6b81c, _4c51300a):
     if 'TradDt' in var_4be6b81c.columns:
-        var_78c8768c = var_4be6b81c['TradDt'][0]
+        var_78c8768c = var_4be6b81c[sym_col[5]][0]
     elif 'DATE1' in var_4be6b81c.columns:
-        var_78c8768c = var_4be6b81c['DATE1'][0].strip()
+        var_78c8768c = var_4be6b81c[sym_col[1]][0].strip()
         var_78c8768c = datetime.strptime(var_78c8768c, '%d-%b-%Y').strftime('%Y-%m-%d')
     else:
         var_78c8768c = None
@@ -321,55 +361,55 @@ def xfa20b436(_4c51300a, var_cd8bc1aa):
     sa_807d0fbc = sa_fddfefa4(var_4be6b81c, _4c51300a)
     if sa_807d0fbc == 'True':
         var_4be6b81c.columns = var_4be6b81c.columns.str.lower()
-        _a23a1d2f = pd.merge(var_4be6b81c, x74e9446e, left_on='tckrsymb', right_on='security', how='left')
+        _a23a1d2f = pd.merge(var_4be6b81c, x74e9446e, left_on=sym_col[58], right_on='security', how='left')
         _fe9f5edb = ['traddt', 'fininstrmid', 'fininstrmnm', 'isin', 'src', 'tckrsymb', 'sctysrs', 'opnpric', 'hghpric', 'lwpric', 'clspric', 'lastpric', 'prvsclsgpric', 'sttlmpric', 'ttltradgvol', 'ttltrfval', 'ttlnboftxsexctd', 'qty_del']
         _a23a1d2f = _a23a1d2f[_fe9f5edb]
-        _a23a1d2f['delvry_trnovr'] = (_a23a1d2f['ttltrfval'] / _a23a1d2f['ttltradgvol'] * _a23a1d2f['qty_del']).round(2)
-        _a23a1d2f = _a23a1d2f.groupby(['isin', 'sctysrs'], as_index=False).agg({'qty_del': 'sum', 'delvry_trnovr': 'sum', 'src': 'first', 'traddt': 'first', 'isin': 'first', 'fininstrmid': 'first', 'tckrsymb': 'first', 'sctysrs': 'first', 'fininstrmnm': 'first', 'opnpric': 'first', 'hghpric': 'first', 'lwpric': 'first', 'clspric': 'first', 'lastpric': 'first', 'prvsclsgpric': 'first', 'sttlmpric': 'first', 'ttltradgvol': 'first', 'ttltrfval': 'first', 'ttlnboftxsexctd': 'first'})
+        _a23a1d2f[sym_col[20]] = (_a23a1d2f[sym_col[67]] / _a23a1d2f[sym_col[65]] * _a23a1d2f[sym_col[44]]).round(2)
+        _a23a1d2f = _a23a1d2f.groupby([sym_col[30], sym_col[46]], as_index=False).agg({'qty_del': 'sum', 'delvry_trnovr': 'sum', 'src': 'first', 'traddt': 'first', 'isin': 'first', 'fininstrmid': 'first', 'tckrsymb': 'first', 'sctysrs': 'first', 'fininstrmnm': 'first', 'opnpric': 'first', 'hghpric': 'first', 'lwpric': 'first', 'clspric': 'first', 'lastpric': 'first', 'prvsclsgpric': 'first', 'sttlmpric': 'first', 'ttltradgvol': 'first', 'ttltrfval': 'first', 'ttlnboftxsexctd': 'first'})
         zx_c7c9c9b8 = _a23a1d2f.columns.tolist()
         zx_912072f1 = [col for col in zx_c7c9c9b8 if col not in ['qty_del', 'delvry_trnovr']] + ['qty_del', 'delvry_trnovr']
         _a23a1d2f = _a23a1d2f[zx_912072f1]
-        _a23a1d2f['sctysrs'] = _a23a1d2f['sctysrs'].fillna('N/A')
+        _a23a1d2f[sym_col[46]] = _a23a1d2f[sym_col[46]].fillna('N/A')
         sa_5c10987b = ['GS', 'GB', 'TB', 'SG', 'N0', 'N1', 'N2', 'N3', 'N4', 'N5', 'N6', 'N7', 'N8', 'N9', 'E1', 'X1', 'Y0', 'Y1', 'Y2', 'Y3', 'Y4', 'Y5', 'Y6', 'Y7', 'Y8', 'YA', 'YC', 'YG', 'YI', 'YK', 'YL', 'YM', 'YN', 'YO', 'YP', 'YQ', 'YR', 'YS', 'YT', 'YV', 'YW', 'YX', 'YY', 'YZ', 'ZY', 'Z0', 'Z2', 'Z3', 'Z4', 'Z5', 'Z6', 'Z7', 'Z8', 'Z9', 'ZB', '    ZC', 'ZD', 'ZE', 'ZF', 'ZG', 'ZH', 'ZI', 'ZJ', 'ZK', 'ZL', 'ZM', 'ZN', 'ZP', 'ZR', 'ZS', 'ZT', 'ZU', 'ZW', 'ZX', 'NB', 'NC', 'ND', 'NE', 'NF', 'NG', 'NH', 'NI', 'NJ', 'NK', 'NL', 'NM', 'NN', 'NO', 'NP', 'NQ', 'NR', 'NS', 'NT', 'NU', 'NV', 'NW', 'NX', 'NY', 'NZ', 'AB', 'AC', 'AG', 'AH', 'AI', 'AJ', 'AL', 'AN', 'AO', 'AP', 'AR', 'AT', 'AV', 'AW', 'AX', 'AY', 'AZ']
-        _a23a1d2f = _a23a1d2f[~_a23a1d2f['sctysrs'].isin(sa_5c10987b)]
+        _a23a1d2f = _a23a1d2f[~_a23a1d2f[sym_col[46]].isin(sa_5c10987b)]
         _a23a1d2f.reset_index(drop=True, inplace=True)
-        x596d40a4 = _a23a1d2f['sctysrs'].isin(['BE', 'BZ']) & (_a23a1d2f['qty_del'] == 0)
-        _a23a1d2f.loc[x596d40a4, 'qty_del'] = _a23a1d2f['ttltradgvol']
-        _a23a1d2f.loc[x596d40a4, 'delvry_trnovr'] = _a23a1d2f['ttltrfval']
+        x596d40a4 = _a23a1d2f[sym_col[46]].isin(['BE', 'BZ']) & (_a23a1d2f[sym_col[44]] == 0)
+        _a23a1d2f.loc[x596d40a4, 'qty_del'] = _a23a1d2f[sym_col[65]]
+        _a23a1d2f.loc[x596d40a4, 'delvry_trnovr'] = _a23a1d2f[sym_col[67]]
         zx_7d2f4792 = ['BE', 'BZ', 'EQ', 'SM', 'ST', 'MF', 'ME']
-        x558bae4c = _a23a1d2f[~_a23a1d2f['sctysrs'].isin(zx_7d2f4792)]
+        x558bae4c = _a23a1d2f[~_a23a1d2f[sym_col[46]].isin(zx_7d2f4792)]
         x558bae4c.reset_index(drop=True, inplace=True)
-        var_bc16acc0 = _a23a1d2f[_a23a1d2f['sctysrs'].isin(zx_7d2f4792)]
+        var_bc16acc0 = _a23a1d2f[_a23a1d2f[sym_col[46]].isin(zx_7d2f4792)]
         var_bc16acc0.reset_index(drop=True, inplace=True)
-        x558bae4c = x558bae4c.groupby('tckrsymb', as_index=False).agg(ttltradgvol=('ttltradgvol', 'sum'), ttltrfval=('ttltrfval', 'sum'), ttlnboftxsexctd=('ttlnboftxsexctd', 'sum'), othr_trds=('sctysrs', lambda x: ', '.join(x)))
+        x558bae4c = x558bae4c.groupby(sym_col[58], as_index=False).agg(ttltradgvol=('ttltradgvol', 'sum'), ttltrfval=('ttltrfval', 'sum'), ttlnboftxsexctd=('ttlnboftxsexctd', 'sum'), othr_trds=('sctysrs', lambda x: ', '.join(x)))
         xed256730 = var_bc16acc0.copy()
-        xed256730 = var_bc16acc0.merge(x558bae4c, on='tckrsymb', how='left', suffixes=('', '_y'))
+        xed256730 = var_bc16acc0.merge(x558bae4c, on=sym_col[58], how='left', suffixes=('', '_y'))
         xed256730.rename(columns={'othr_trds_y': 'othr_trds', 'ttltradgvol_y': 'othr_trds_vol', 'ttltrfval_y': 'othr_trds_val', 'ttlnboftxsexctd_y': 'othr_trds_txsexctd'}, inplace=True)
         _a23a1d2f = xed256730.copy()
-        sa_0abf75cb = _a23a1d2f['tckrsymb'].value_counts()
+        sa_0abf75cb = _a23a1d2f[sym_col[58]].value_counts()
         xa5d9de3b = sa_0abf75cb[sa_0abf75cb > 1]
         if len(xa5d9de3b) != 0:
             for zx_2c6bc158 in xa5d9de3b.index:
-                _5282482f = _a23a1d2f[_a23a1d2f['tckrsymb'] == zx_2c6bc158]
+                _5282482f = _a23a1d2f[_a23a1d2f[sym_col[58]] == zx_2c6bc158]
                 print(_5282482f[['traddt', 'isin', 'fininstrmid', 'tckrsymb', 'sctysrs', 'ttltradgvol', 'ttltrfval', 'ttlnboftxsexctd', 'qty_del', 'delvry_trnovr']])
                 print('Merged_df_nse have more than 1 entry for above Symbols')
                 print(zx_2c6bc158)
-                if _5282482f['qty_del'].nunique() == 1:
+                if _5282482f[sym_col[44]].nunique() == 1:
                     x0860132f = input('Do you want to remove one of these entries? (Enter or yes/no): ')
                     if x0860132f.lower() == 'yes' or x0860132f == '':
-                        _a23a1d2f = _a23a1d2f[~((_a23a1d2f['tckrsymb'] == zx_2c6bc158) & (_a23a1d2f['sctysrs'] != 'EQ'))]
+                        _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
                         print(f'Removed one entry for {zx_2c6bc158}.')
                     elif x0860132f.lower() == 'no':
-                        print(f'Different qty_del for {zx_2c6bc158}: {_5282482f['qty_del'].unique()}')
+                        print(f'Different qty_del for {zx_2c6bc158}: {_5282482f[sym_col[44]].unique()}')
                     else:
                         print('Invalid input.')
-                        _a23a1d2f = _a23a1d2f[~((_a23a1d2f['tckrsymb'] == zx_2c6bc158) & (_a23a1d2f['sctysrs'] != 'EQ'))]
+                        _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
                         print(f'Removed one entry for {zx_2c6bc158}.')
-        x00f317ee = _a23a1d2f['isin'].value_counts()
+        x00f317ee = _a23a1d2f[sym_col[30]].value_counts()
         sa_d4c4dcfd = x00f317ee[x00f317ee > 1]
         if len(sa_d4c4dcfd) != 0:
             for x48a4d578 in sa_d4c4dcfd.index:
-                zx_7f6c6b1f = _a23a1d2f[_a23a1d2f['isin'] == x48a4d578]
+                zx_7f6c6b1f = _a23a1d2f[_a23a1d2f[sym_col[30]] == x48a4d578]
                 print(zx_7f6c6b1f[['traddt', 'isin', 'fininstrmid', 'tckrsymb', 'sctysrs', 'ttltradgvol', 'ttltrfval', 'ttlnboftxsexctd', 'qty_del', 'delvry_trnovr']])
                 print('Merged_df_nse have more than 1 entry for above ISINs')
                 print(x48a4d578)
@@ -395,8 +435,8 @@ def var_f2e352ac(_334f7a3d, zx_eb105c7a):
     except pd.errors.ParserError:
         print(f'Error parsing the file {zx_eb105c7a}. Please check the data format.')
     zx_d5906e21.rename(columns={'scrip code': 'scrip_code', 'delivery qty': 'qty_del_b', 'delivery val': 'delvry_trnovr_b', "day's volume": 'day_volume_b', "day's turnover": 'day_trnover_b', 'delv. per.': 'day_perc_b'}, inplace=True)
-    var_463a048b = x497f1234['traddt_b'][0]
-    zx_3e2a8280 = zx_d5906e21['date'][0]
+    var_463a048b = x497f1234[sym_col[62]][0]
+    zx_3e2a8280 = zx_d5906e21[sym_col[16]][0]
     _db8b2175 = str(zx_3e2a8280)
     zx_32e1b76e = datetime.strptime(_db8b2175, '%d%m%Y').strftime('%Y-%m-%d')
     if zx_32e1b76e == var_463a048b:
@@ -405,43 +445,43 @@ def var_f2e352ac(_334f7a3d, zx_eb105c7a):
         print('The dates are not same for BSE Files.')
         var_b027a25f = 'Flase'
     if var_b027a25f == 'True':
-        x497f1234['fininstrmid_b'] = x497f1234['fininstrmid_b'].astype(str)
-        zx_0e3b8575 = pd.merge(x497f1234, zx_d5906e21, left_on='fininstrmid_b', right_on='scrip_code', how='left')
+        x497f1234[sym_col[24]] = x497f1234[sym_col[24]].astype(str)
+        zx_0e3b8575 = pd.merge(x497f1234, zx_d5906e21, left_on=sym_col[26], right_on='scrip_code', how='left')
         xe5400f53 = ['traddt_b', 'src_b', 'fininstrmid_b', 'isin_b', 'fininstrmnm_b', 'tckrsymb_b', 'sctysrs_b', 'opnpric_b', 'hghpric_b', 'lwpric_b', 'clspric_b', 'lastpric_b', 'prvsclsgpric_b', 'sttlmpric_b', 'ttltradgvol_b', 'ttltrfval_b', 'ttlnboftxsexctd_b', 'qty_del_b', 'delvry_trnovr_b', 'day_volume_b', 'day_trnover_b', 'day_perc_b']
         zx_0e3b8575 = zx_0e3b8575[xe5400f53]
-        zx_0e3b8575['sctysrs_b'] = zx_0e3b8575['sctysrs_b'].fillna('N/A')
-        sa_0abf75cb = zx_0e3b8575['tckrsymb_b'].value_counts()
+        zx_0e3b8575[sym_col[47]] = zx_0e3b8575[sym_col[47]].fillna('N/A')
+        sa_0abf75cb = zx_0e3b8575[sym_col[59]].value_counts()
         x6e8f3834 = sa_0abf75cb[sa_0abf75cb > 1]
         if len(x6e8f3834) != 0:
             for zx_2c6bc158 in x6e8f3834.index:
-                _5282482f = zx_0e3b8575[zx_0e3b8575['tckrsymb_b'] == zx_2c6bc158]
+                _5282482f = zx_0e3b8575[zx_0e3b8575[sym_col[59]] == zx_2c6bc158]
                 print(_5282482f[['traddt_b', 'isin_b', 'fininstrmid_b', 'tckrsymb_b', 'sctysrs_b', 'ttltradgvol_b', 'ttltrfval_b', 'ttlnboftxsexctd_b', 'qty_del_b', 'delvry_trnovr_b']])
                 print('Merged_df_bse have more than 1 entry for above Symbols')
                 print(zx_2c6bc158)
-                if _5282482f['qty_del_b'].nunique() == 1:
+                if _5282482f[sym_col[45]].nunique() == 1:
                     x0860132f = input('Do you want to remove one of these entries? (yes/no): ')
                     if x0860132f.lower() == 'yes':
-                        zx_0e3b8575 = zx_0e3b8575[~((zx_0e3b8575['tckrsymb_b'] == zx_2c6bc158) & (zx_0e3b8575['sctysrs_b'] != 'EQ'))]
+                        zx_0e3b8575 = zx_0e3b8575[~((zx_0e3b8575[sym_col[59]] == zx_2c6bc158) & (zx_0e3b8575[sym_col[47]] != 'EQ'))]
                         print(f'Removed one entry for {zx_2c6bc158}.')
                 else:
-                    print(f'Different qty_del for {zx_2c6bc158}: {_5282482f['qty_del_b'].unique()}')
-        x00f317ee = zx_0e3b8575['isin_b'].value_counts()
+                    print(f'Different qty_del for {zx_2c6bc158}: {_5282482f[sym_col[45]].unique()}')
+        x00f317ee = zx_0e3b8575[sym_col[31]].value_counts()
         sa_d4c4dcfd = x00f317ee[x00f317ee > 1]
         if len(sa_d4c4dcfd) != 0:
             for x48a4d578 in sa_d4c4dcfd.index:
-                _5282482f = zx_0e3b8575[zx_0e3b8575['isin_b'] == x48a4d578]
+                _5282482f = zx_0e3b8575[zx_0e3b8575[sym_col[31]] == x48a4d578]
                 print(_5282482f[['traddt_b', 'isin_b', 'fininstrmid_b', 'tckrsymb_b', 'sctysrs_b', 'ttltradgvol_b', 'ttltrfval_b', 'ttlnboftxsexctd_b', 'qty_del_b', 'delvry_trnovr_b']])
                 print('Merged_df_bse have more than 1 entry for above ISIN')
                 print(x48a4d578)
-                if _5282482f['qty_del_b'].nunique() == 1:
+                if _5282482f[sym_col[45]].nunique() == 1:
                     x0860132f = input('Do you want to remove one of these entries? (yes/no): ')
                     if x0860132f.lower() == 'yes':
-                        zx_0e3b8575 = zx_0e3b8575[~((zx_0e3b8575['isin_b'] == x48a4d578) & zx_0e3b8575['qty_del_b'].isna())]
+                        zx_0e3b8575 = zx_0e3b8575[~((zx_0e3b8575[sym_col[31]] == x48a4d578) & zx_0e3b8575[sym_col[45]].isna())]
                         print(f'Removed one entry for {x48a4d578} where Delivery Quantity is NaN.')
                 else:
-                    print(f'Different qty_del for {zx_2c6bc158}: {_5282482f['qty_del_b'].unique()}')
+                    print(f'Different qty_del for {zx_2c6bc158}: {_5282482f[sym_col[45]].unique()}')
         sa_5c10987b = ['G', 'F']
-        zx_0e3b8575 = zx_0e3b8575[~zx_0e3b8575['sctysrs_b'].isin(sa_5c10987b)]
+        zx_0e3b8575 = zx_0e3b8575[~zx_0e3b8575[sym_col[47]].isin(sa_5c10987b)]
         zx_0e3b8575.reset_index(drop=True, inplace=True)
         return zx_0e3b8575
     else:
@@ -451,30 +491,30 @@ def var_f2e352ac(_334f7a3d, zx_eb105c7a):
         print(f'Delivery BSE {zx_eb105c7a}')
 
 def sa_62b57292(xbc9ca89e):
-    var_eeba8bb6 = xbc9ca89e['traddt'].unique()[0]
-    x367ef122 = xbc9ca89e['traddt_b'].unique()[0]
+    var_eeba8bb6 = xbc9ca89e[sym_col[61]].unique()[0]
+    x367ef122 = xbc9ca89e[sym_col[62]].unique()[0]
     if var_eeba8bb6 == x367ef122 or var_eeba8bb6 != x367ef122:
-        xbc9ca89e['traddt'] = xbc9ca89e['traddt'].fillna(xbc9ca89e['traddt_b'])
-        xbc9ca89e['isin'] = xbc9ca89e['isin'].fillna(xbc9ca89e['isin_b'])
-        xbc9ca89e['opnpric'] = xbc9ca89e['opnpric'].fillna(xbc9ca89e['opnpric_b'])
-        xbc9ca89e['hghpric'] = xbc9ca89e['hghpric'].fillna(xbc9ca89e['hghpric_b'])
-        xbc9ca89e['lwpric'] = xbc9ca89e['lwpric'].fillna(xbc9ca89e['lwpric_b'])
-        xbc9ca89e['clspric'] = xbc9ca89e['clspric'].fillna(xbc9ca89e['clspric_b'])
-        xbc9ca89e['prvsclsgpric'] = xbc9ca89e['prvsclsgpric'].fillna(xbc9ca89e['prvsclsgpric_b'])
-        xbc9ca89e['sttlmpric'] = xbc9ca89e['sttlmpric'].fillna(xbc9ca89e['sttlmpric_b'])
-        xbc9ca89e['lastpric'] = xbc9ca89e['lastpric'].fillna(xbc9ca89e['lastpric_b'])
-        xbc9ca89e['fininstrmnm'] = xbc9ca89e['fininstrmnm'].fillna(xbc9ca89e['fininstrmnm_b'])
-        xbc9ca89e['sum_ttltradgvol'] = xbc9ca89e['ttltradgvol'].fillna(0) + xbc9ca89e['ttltradgvol_b'].fillna(0)
-        xbc9ca89e['sum_ttltrfval'] = xbc9ca89e['ttltrfval'].fillna(0) + xbc9ca89e['ttltrfval_b'].fillna(0)
-        xbc9ca89e['sum_ttlnboftxsexctd'] = xbc9ca89e['ttlnboftxsexctd'].fillna(0) + xbc9ca89e['ttlnboftxsexctd_b'].fillna(0)
-        xbc9ca89e['sum_del_qty'] = xbc9ca89e['qty_del'].fillna(0) + xbc9ca89e['qty_del_b'].fillna(0)
-        xbc9ca89e['sum_delvry_trnovr'] = xbc9ca89e['delvry_trnovr'].fillna(0) + xbc9ca89e['delvry_trnovr_b'].fillna(0)
-        xbc9ca89e['del_per'] = (xbc9ca89e['sum_del_qty'] / xbc9ca89e['sum_ttltradgvol'] * 100).round(2)
-        xbc9ca89e['avg_price'] = (xbc9ca89e['sum_ttltrfval'] / xbc9ca89e['sum_ttltradgvol']).round(2)
-        xbc9ca89e['avg_qty_per_order'] = (xbc9ca89e['sum_ttltradgvol'] / xbc9ca89e['sum_ttlnboftxsexctd']).round(2)
-        xbc9ca89e['avg_order_price'] = (xbc9ca89e['avg_price'] * xbc9ca89e['avg_qty_per_order']).round(2)
-        xbc9ca89e['close_to_avg'] = (xbc9ca89e['avg_price'] - xbc9ca89e['clspric']).round(2)
-        xbc9ca89e['close_avg_perc'] = (xbc9ca89e['close_to_avg'] * 100 / xbc9ca89e['clspric']).round(2)
+        xbc9ca89e[sym_col[61]] = xbc9ca89e[sym_col[61]].fillna(xbc9ca89e[sym_col[62]])
+        xbc9ca89e[sym_col[30]] = xbc9ca89e[sym_col[30]].fillna(xbc9ca89e[sym_col[31]])
+        xbc9ca89e[sym_col[38]] = xbc9ca89e[sym_col[38]].fillna(xbc9ca89e[sym_col[39]])
+        xbc9ca89e[sym_col[27]] = xbc9ca89e[sym_col[27]].fillna(xbc9ca89e[sym_col[28]])
+        xbc9ca89e[sym_col[34]] = xbc9ca89e[sym_col[34]].fillna(xbc9ca89e[sym_col[35]])
+        xbc9ca89e[sym_col[14]] = xbc9ca89e[sym_col[14]].fillna(xbc9ca89e[sym_col[15]])
+        xbc9ca89e[sym_col[42]] = xbc9ca89e[sym_col[42]].fillna(xbc9ca89e[sym_col[43]])
+        xbc9ca89e[sym_col[50]] = xbc9ca89e[sym_col[50]].fillna(xbc9ca89e[sym_col[51]])
+        xbc9ca89e[sym_col[32]] = xbc9ca89e[sym_col[32]].fillna(xbc9ca89e[sym_col[33]])
+        xbc9ca89e[sym_col[25]] = xbc9ca89e[sym_col[25]].fillna(xbc9ca89e[sym_col[26]])
+        xbc9ca89e[sym_col[55]] = xbc9ca89e[sym_col[65]].fillna(0) + xbc9ca89e[sym_col[66]].fillna(0)
+        xbc9ca89e[sym_col[56]] = xbc9ca89e[sym_col[67]].fillna(0) + xbc9ca89e[sym_col[68]].fillna(0)
+        xbc9ca89e[sym_col[54]] = xbc9ca89e[sym_col[63]].fillna(0) + xbc9ca89e[sym_col[64]].fillna(0)
+        xbc9ca89e[sym_col[52]] = xbc9ca89e[sym_col[44]].fillna(0) + xbc9ca89e[sym_col[45]].fillna(0)
+        xbc9ca89e[sym_col[53]] = xbc9ca89e[sym_col[20]].fillna(0) + xbc9ca89e[sym_col[21]].fillna(0)
+        xbc9ca89e[sym_col[18]] = (xbc9ca89e[sym_col[52]] / xbc9ca89e[sym_col[55]] * 100).round(2)
+        xbc9ca89e[sym_col[9]] = (xbc9ca89e[sym_col[56]] / xbc9ca89e[sym_col[55]]).round(2)
+        xbc9ca89e[sym_col[10]] = (xbc9ca89e[sym_col[55]] / xbc9ca89e[sym_col[54]]).round(2)
+        xbc9ca89e[sym_col[8]] = (xbc9ca89e[sym_col[9]] * xbc9ca89e[sym_col[10]]).round(2)
+        xbc9ca89e[sym_col[13]] = (xbc9ca89e[sym_col[9]] - xbc9ca89e[sym_col[14]]).round(2)
+        xbc9ca89e[sym_col[12]] = (xbc9ca89e[sym_col[13]] * 100 / xbc9ca89e[sym_col[14]]).round(2)
         xbc9ca89e = xbc9ca89e[['traddt', 'isin', 'fininstrmid', 'fininstrmid_b', 'tckrsymb', 'tckrsymb_b', 'sctysrs', 'sctysrs_b', 'src', 'src_b', 'fininstrmnm', 'opnpric', 'hghpric', 'lwpric', 'clspric', 'lastpric', 'prvsclsgpric', 'sttlmpric', 'ttltradgvol', 'ttltrfval', 'ttlnboftxsexctd', 'qty_del', 'delvry_trnovr', 'ttltradgvol_b', 'ttltrfval_b', 'ttlnboftxsexctd_b', 'qty_del_b', 'delvry_trnovr_b', 'sum_ttltradgvol', 'sum_ttltrfval', 'sum_ttlnboftxsexctd', 'sum_del_qty', 'sum_delvry_trnovr', 'del_per', 'avg_price', 'avg_qty_per_order', 'avg_order_price', 'close_to_avg', 'close_avg_perc', 'othr_trds', 'othr_trds_vol', 'othr_trds_val', 'othr_trds_txsexctd']]
         sa_89a8394b = xbc9ca89e.copy().reset_index(drop=True)
     else:
@@ -485,44 +525,41 @@ def sa_62b57292(xbc9ca89e):
 def sa_bdc9a363(_4c51300a, var_cd8bc1aa, _334f7a3d, zx_eb105c7a):
     _a23a1d2f = xfa20b436(_4c51300a, var_cd8bc1aa)
     zx_0e3b8575 = var_f2e352ac(_334f7a3d, zx_eb105c7a)
-    xbc9ca89e = pd.merge(_a23a1d2f, zx_0e3b8575, left_on='isin', right_on='isin_b', how='outer')
-    xbc9ca89e['fininstrmid'] = xbc9ca89e['fininstrmid'].fillna(0).astype(int).astype(str)
-    xbc9ca89e['fininstrmid'] = xbc9ca89e['fininstrmid'].replace('0', np.nan)
+    xbc9ca89e = pd.merge(_a23a1d2f, zx_0e3b8575, left_on=sym_col[30], right_on=sym_col[31], how='outer')
+    xbc9ca89e[sym_col[23]] = xbc9ca89e[sym_col[23]].fillna(0).astype(int).astype(str)
+    xbc9ca89e[sym_col[23]] = xbc9ca89e[sym_col[23]].replace('0', np.nan)
     sa_89a8394b = sa_62b57292(xbc9ca89e)
     return sa_89a8394b
 
 def sa_e342d3f6():
     var_4780fc62 = {'dbname': _b4c16391, 'user': sa_a0e71f8f, 'password': _2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{var_4780fc62['user']}:{var_4780fc62['password']}@{var_4780fc62['host']}:{var_4780fc62['port']}/{var_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{var_4780fc62[sym_col[70]]}:{var_4780fc62[sym_col[40]]}@{var_4780fc62[sym_col[29]]}:{var_4780fc62[sym_col[41]]}/{var_4780fc62[sym_col[17]]}"
     engine = create_engine(conn_string)
     query = 'SELECT isin FROM my_static_data'
     sa_ae9a54ec = pd.read_sql_query(query, engine)
-    var_479cc7da = sa_ae9a54ec[['isin']]
-    var_69f08581 = set(var_479cc7da['isin'])
+    var_479cc7da = sa_ae9a54ec[[sym_col[30]]]
+    var_69f08581 = set(var_479cc7da[sym_col[30]])
     return var_69f08581
 
 def var_f8551387(sa_89a8394b):
     sa_37ad9730 = ['isin', 'fininstrmid', 'fininstrmid_b', 'tckrsymb', 'tckrsymb_b', 'src', 'src_b', 'fininstrmnm']
     var_eaeb8393 = sa_89a8394b[sa_37ad9730]
-    var_1d1dfb4f = var_eaeb8393[(var_eaeb8393['fininstrmid'].isnull() | (var_eaeb8393['fininstrmid'] == 0) | (var_eaeb8393['fininstrmid_b'] == '')) & (var_eaeb8393['fininstrmid_b'].isnull() | (var_eaeb8393['fininstrmid'] == 0) | (var_eaeb8393['fininstrmid_b'] == ''))]
-    sa_be39f99e = var_eaeb8393[(var_eaeb8393['src'].isnull() | (var_eaeb8393['src'] == 0) | (var_eaeb8393['src_b'] == '')) & (var_eaeb8393['src_b'].isnull() | (var_eaeb8393['src'] == 0) | (var_eaeb8393['src_b'] == ''))]
+    var_1d1dfb4f = var_eaeb8393[(var_eaeb8393[sym_col[23]].isnull() | (var_eaeb8393[sym_col[23]] == 0) | (var_eaeb8393[sym_col[24]] == '')) & (var_eaeb8393[sym_col[24]].isnull() | (var_eaeb8393[sym_col[23]] == 0) | (var_eaeb8393[sym_col[24]] == ''))]
+    sa_be39f99e = var_eaeb8393[(var_eaeb8393[sym_col[48]].isnull() | (var_eaeb8393[sym_col[48]] == 0) | (var_eaeb8393[sym_col[49]] == '')) & (var_eaeb8393[sym_col[49]].isnull() | (var_eaeb8393[sym_col[48]] == 0) | (var_eaeb8393[sym_col[49]] == ''))]
     for index, row in var_1d1dfb4f.iterrows():
-        print(f'Invalid FININSTRMID at ISIN: {row['isin']} - Both columns are empty or invalid.')
+        print(f'Invalid FININSTRMID at ISIN: {row[sym_col[30]]} - Both columns are empty or invalid.')
     for index, row in sa_be39f99e.iterrows():
-        print(f'Invalid SRC at ISIN: {row['isin']} - Both columns are empty or invalid.')
+        print(f'Invalid SRC at ISIN: {row[sym_col[30]]} - Both columns are empty or invalid.')
     zx_c164102f = pd.concat([var_1d1dfb4f, sa_be39f99e])
     if not zx_c164102f.empty:
-        x7c4a135d = pd.to_datetime(sa_89a8394b['traddt'][0]).strftime('%d-%m-%Y')
+        x7c4a135d = pd.to_datetime(sa_89a8394b[sym_col[61]][0]).strftime('%d-%m-%Y')
         print(f'Invalid rows found. saving to CSV file (invalid_rows-{x7c4a135d}) and Exiting...')
         zx_c164102f.to_csv(f'invalid_rows-{x7c4a135d}.csv', index=False)
         sys.exit()
     var_69f08581 = sa_e342d3f6()
-    zx_f290001d = var_eaeb8393[~var_eaeb8393['isin'].isin(var_69f08581)]
-    if not zx_f290001d.empty:
-        print(f'----------Missing Data ------------')
-        print(f'{zx_f290001d}')
+    zx_f290001d = var_eaeb8393[~var_eaeb8393[sym_col[30]].isin(var_69f08581)]
     var_4780fc62 = {'dbname': _b4c16391, 'user': sa_a0e71f8f, 'password': _2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{var_4780fc62['user']}:{var_4780fc62['password']}@{var_4780fc62['host']}:{var_4780fc62['port']}/{var_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{var_4780fc62[sym_col[70]]}:{var_4780fc62[sym_col[40]]}@{var_4780fc62[sym_col[29]]}:{var_4780fc62[sym_col[41]]}/{var_4780fc62[sym_col[17]]}"
     engine = create_engine(conn_string)
     if not zx_f290001d.empty:
         zx_f290001d.to_sql('my_static_data', engine, if_exists='append', index=False)
@@ -534,7 +571,7 @@ def var_f8551387(sa_89a8394b):
 def xe8c0a0a9(sa_89a8394b):
     _da88f560 = ['fininstrmid', 'fininstrmid_b', 'tckrsymb', 'tckrsymb_b', 'src', 'src_b', 'fininstrmnm']
     xf33bad8d = sa_89a8394b.drop(columns=_da88f560)
-    xf33bad8d['traddt'] = pd.to_datetime(xf33bad8d['traddt'])
+    xf33bad8d[sym_col[61]] = pd.to_datetime(xf33bad8d[sym_col[61]])
     zx_d373b5c0 = {'isin': 20, 'sctysrs': 10, 'sctysrs_b': 10, 'othr_trds': 20}
     for col, sa_0f82aca6 in zx_d373b5c0.items():
         xf33bad8d[col] = xf33bad8d[col].astype(str).str.slice(0, sa_0f82aca6)
@@ -551,7 +588,7 @@ def xe8c0a0a9(sa_89a8394b):
     for col in var_4749223f:
         xf33bad8d[col] = pd.to_numeric(xf33bad8d[col], errors='coerce').astype(float)
     var_4780fc62 = {'dbname': _b4c16391, 'user': sa_a0e71f8f, 'password': _2e48e91c, 'host': 'localhost', 'port': '5432'}
-    conn_string = f'postgresql+psycopg2://{var_4780fc62['user']}:{var_4780fc62['password']}@{var_4780fc62['host']}:{var_4780fc62['port']}/{var_4780fc62['dbname']}'
+    conn_string = f"postgresql+psycopg2://{var_4780fc62[sym_col[70]]}:{var_4780fc62[sym_col[40]]}@{var_4780fc62[sym_col[29]]}:{var_4780fc62[sym_col[41]]}/{var_4780fc62[sym_col[17]]}"
     engine = create_engine(conn_string)
     try:
         xf33bad8d.to_sql('my_daily_data', engine, if_exists='append', index=False)
@@ -566,12 +603,12 @@ def xe8c0a0a9(sa_89a8394b):
         except Exception as e:
             print(f'Error closing the connection: {e}')
     return xf33bad8d
-
+ 
 def xfba190f0(sa_aaf3eb44, sa_65808d74, sa_400bb302):
     sa_400bb302 = str(sa_400bb302)
     sa_65808d74 = f'{sa_65808d74:02d}'
     for index, row in sa_aaf3eb44.iterrows():
-        _acf3357e = row['Date_type']
+        _acf3357e = row[sym_col[3]]
         print(_acf3357e)
         sa_41834621 = _acf3357e.day
         sa_41834621 = f'{sa_41834621:02d}'
@@ -597,7 +634,7 @@ def zx_c6afc31b(zx_04bfce14, var_681b9f9f):
         print(zx_073c1634)
     else:
         xe3c9de4d = sa_a64995fe(var_0260dcc4, var_4fb553ef)
-        sa_aaf3eb44 = xe3c9de4d[(xe3c9de4d['Date_type'] >= zx_04bfce14) & (xe3c9de4d['Date_type'] <= var_681b9f9f)]
+        sa_aaf3eb44 = xe3c9de4d[(xe3c9de4d[sym_col[3]] >= zx_04bfce14) & (xe3c9de4d[sym_col[3]] <= var_681b9f9f)]
         xfba190f0(sa_aaf3eb44, var_0260dcc4, var_4fb553ef)
         zx_073c1634 = 'OK'
     return zx_073c1634

@@ -14,12 +14,12 @@ else:
     sa_a0e71f8f = sa_631aada4[1]
     var_2e48e91c = sa_631aada4[2]
 
-def zx_4414491f(var_2e48e91c):
+def zx_4414491f(var_2e48e91c, var_b4c16391):
     conn = psycopg2.connect(database='postgres', user='postgres', password=var_2e48e91c, host='localhost', port='5432')
     conn.autocommit = True
     cursor = conn.cursor()
     try:
-        cursor.execute('CREATE DATABASE EchoEphemeris;')
+        cursor.execute(f'CREATE DATABASE {var_b4c16391};')
         print("Database 'my_delivery_data' created successfully.")
         sa_073c1634 = True
     except Exception as e:
@@ -45,7 +45,7 @@ def xea13d6bb(var_b4c16391, var_2e48e91c):
         conn.commit()
         conn.close()
     return sa_073c1634
-
+ 
 def x47b43f5a(var_b4c16391, var_2e48e91c):
     conn = psycopg2.connect(database=var_b4c16391, user='postgres', password=var_2e48e91c, host='localhost', port='5432')
     cursor = conn.cursor()
@@ -135,15 +135,15 @@ def sa_cf342737(var_b4c16391, var_2e48e91c):
     return sa_073c1634
 sa_073c1634 = sa_cf342737(var_b4c16391, var_2e48e91c)
 if sa_073c1634:
-    sa_073c1634 = zx_4414491f(db_password=var_2e48e91c)
+    sa_073c1634 = zx_4414491f(var_2e48e91c)
 if sa_073c1634:
-    sa_073c1634 = xea13d6bb(db_name=var_b4c16391, db_password=var_2e48e91c)
+    sa_073c1634 = xea13d6bb(var_b4c16391,var_2e48e91c)
 if sa_073c1634:
-    sa_073c1634 = x47b43f5a(db_name=var_b4c16391, db_password=var_2e48e91c)
+    sa_073c1634 = x47b43f5a(var_b4c16391,var_2e48e91c)
 if sa_073c1634:
-    sa_073c1634 = xc4dfeba4(db_name=var_b4c16391, db_password=var_2e48e91c)
+    sa_073c1634 = xc4dfeba4(var_b4c16391, var_2e48e91c)
 if sa_073c1634:
-    sa_073c1634 = sa_49d6f108(db_name=var_b4c16391, db_password=var_2e48e91c)
+    sa_073c1634 = sa_49d6f108(var_b4c16391, var_2e48e91c)
 if sa_073c1634:
     print('Database setup successfully done')
     xe46c5d58(var_b4c16391, sa_a0e71f8f, var_2e48e91c)
