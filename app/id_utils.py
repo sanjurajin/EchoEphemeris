@@ -62,11 +62,14 @@ def x0f7092b4():
         xd226b36e['labels'] = x97207f88
         sA_29acb09c.append(xd226b36e)
     return sA_29acb09c
-
+def _fbx8724s ():
+    wr_234jkla = os.path.join(cwd,'app', 'creden.txt')
+    sa_631aada4 = open(wr_234jkla, 'r').read().split()[3]
+    return float(sa_631aada4)
 def zx_64439cbd():
     var_93bcfcb8 = zx_98d53de0()
     xdc383d98 = var_93bcfcb8.groupby('date_open')['pnl'].sum().reset_index()
-    var_1ad6ff9a = 10000
+    var_1ad6ff9a  =_fbx8724s ()
     xdc383d98['Equity'] = (var_1ad6ff9a + xdc383d98['pnl'].cumsum()).round(2)
     d_08b48570_ = xdc383d98['date_open'].dt.strftime('%Y-%m-%d').tolist()
     x30703a5c = xdc383d98['Equity'].tolist()

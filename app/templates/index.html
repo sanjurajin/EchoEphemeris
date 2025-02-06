@@ -6,23 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
-    
     <title>My Deshboard</title>
-    <style>
-        
-
-    </style> 
 </head>
 <body>
-    
     {% include 'navbar.html' %}
     <div class="main">
         <h1>My Deshboard</h1>
-        
         <div class="last_trade_dates">
             {% for chart in charts_data %}
             <div class="chart">
@@ -30,196 +20,49 @@
             </div> 
             {% endfor %}
         </div>
-        
         <div class="equity_curve_chart">
-            
             <canvas id="equityCurveChart"></canvas>
         </div>    
     </div>
     <script>
-             
-// SCRIPT FOR LAST 4 DAYS TRADE CHART
-            {% for chart in charts_data %}
-            const ctx{{ loop.index }} = document.getElementById('chart{{ loop.index }}').getContext('2d');
-            const chart{{ loop.index }} = new Chart(ctx{{ loop.index }}, {
-                type: 'line',
-                data: {
-                    labels: {{ chart.labels | tojson }},
-                    datasets: [{
-                        label: '{{ chart.datasets[0].label }}',
-                        data: {{ chart.datasets[0].data | tojson }},
-                        borderColor: 'rgb(75, 192, 192)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        tension: 0.8,
-                        // pointStyle: 'crossRot',
-                        borderWidth: 2, // Adjust line thickness
-                        pointRadius: 3, // Adjust point size
-                        pointStyle: false,
-                        // fill: false,
-                        fill: true,
-                            fill: {
-                                target: 'origin',
-                                above: 'rgb(0,255, 136, 0.385)',   // Area will be red above the origin
-                                below: 'rgba(255, 0,0, 0.200)',    // And blue below the origin
-                             }
-
-                        }]
-                        },
-                options: {
-                    // maintainAspectRatio: false,
-                    animation: {
-                            easing: 'easeInOutQuad',
-                            duration: 1000,
-                        },
-                    responsive: true,
-                    interaction: {
-                            intersect: false,
-                            mode: 'nearest',
-                            axis : 'xy',
-                            },
-                    scales: {
-                        x: {
-                            display: false // Hides x-axis labels
-                            },
-                            
-                        y: {
-                            display: true, // Hides y-axis labels
-                            
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)' // Light grid color
-                                },
-                            
-                            ticks: {
-                                callback: function(value) {
-                                    return value === 0 ? '0' : value;
-                                        }
-                                    }
-                            }
-                            },
-                    plugins: {
-                        
-                        legend: {
-                            // display: true, // Hides the legend
-                            // position = 'left',
-                            
-                            display: true,
-                                position: 'top',
-                                align: 'start',
-                                labels: {
-                                    // boxWidth: 30,
-                                    // color:'darkgray',
-                                    font: {
-                                        weight: 'bolder',
-                                        family: 'sans-serif',
-                                        size: 12,
-                                        
-                                    }
-                                },
-                                },
-                        title: {
-                            // display: true,
-                                // text: (ctx) => 'Point Style: ' + ctx.chart.data.datasets[0].pointStyle,
-                                },
-                        afterDraw: function(chart) {
-                            const ctx = chart.ctx;
-                            const chartArea = chart.chartArea;
-
-                            // Draw horizontal zero line
-                            ctx.save();
-                            ctx.beginPath();
-                            ctx.moveTo(chartArea.left, chart.scales.y.getPixelForValue(0)); // Get pixel for zero value
-                            ctx.lineTo(chartArea.right, chart.scales.y.getPixelForValue(0));
-                            ctx.lineWidth = 2;
-                            ctx.strokeStyle = 'red';
-                            ctx.stroke();
-                            ctx.restore();
-
-                                }
-                            }
-                        }
-            });
+        {% for chart in charts_data %}
+        const ctx{{ loop.index }} = document.getElementById('chart{{ loop.index }}').getContext('2d');
+        const chart{{ loop.index }} = new Chart(ctx{{ loop.index }}, {
+            type: 'line',
+            data: {labels: {{ chart.labels | tojson }},
+                datasets: [{label: '{{ chart.datasets[0].label }}',
+                    data: {{ chart.datasets[0].data | tojson }},borderColor: 'rgb(75, 192, 192)',backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.8,borderWidth: 2, pointRadius: 3, pointStyle: false,fill: true,
+                        fill: {target: 'origin',above: 'rgb(0,255, 136, 0.385)',below: 'rgba(255, 0,0, 0.200)',}}]},
+            options: {animation: {easing: 'easeInOutQuad',duration: 1000,},
+                responsive: true,interaction: {intersect: false,mode: 'nearest',axis : 'xy',},
+                scales: {x: {display: false },
+                    y: {display: true,beginAtZero: true,grid: {color: 'rgba(0, 0, 0, 0.1)' },
+                        ticks: {callback: function(value) {return value === 0 ? '0' : value;}}}},
+                plugins: {legend: {display: true,position: 'top',align: 'start',
+                            labels: {font: {weight: 'bolder',family: 'sans-serif',size: 12,}},},
+                    title: {},
+                    afterDraw: function(chart) {const ctx = chart.ctx;const chartArea = chart.chartArea;ctx.save();
+                        ctx.beginPath();ctx.moveTo(chartArea.left, chart.scales.y.getPixelForValue(0));
+                        ctx.lineTo(chartArea.right, chart.scales.y.getPixelForValue(0));
+                        ctx.lineWidth = 2;ctx.strokeStyle = 'red';ctx.stroke();ctx.restore();}}}});
         {% endfor %}
-
-// ----------------------------------------------------------------
-            // SCRIPT FOR EQUITY CURVE
-        const eq_dates = {{ eq_dates | tojson | safe }}; // Dates from Flask
-        const equity = {{ equity | tojson | safe }}; // Equity values from Flask
-
-        if (eq_dates.length && equity.length) { // Check if data is available
+        const eq_dates = {{ eq_dates | tojson | safe }}; const equity = {{ equity | tojson | safe }}; 
+        if (eq_dates.length && equity.length) { 
             const ctx = document.getElementById('equityCurveChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: eq_dates,
-                    datasets: [{
-                        label: 'Equity Over Time',
-                        data: equity,
-                        borderColor: 'rgba(4, 4, 255, 0.685)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 2,
-                        pointStyle: false,
-                        borderRadius: 10, // Adjust this value for more or less curvature
-                        tension: 0.4,
-                        fill: false,
-                    }]
-                    },
-                
-                options: {
-                    maintainAspectRatio: false,
-                    animation: {
-                        easing: 'easeInOutQuad',
-                        duration: 1000,
-                    },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            align: 'start',
-                            labels: {
-                                boxWidth:30,
-                                color:'black',
-                                font: {
-                                    weight: 'bolder ',
-                                    family: 'sans-serif',
-                                    size: 15,
-                                    
-                                    }
-                                
-                                },
-                            },
-                    },
-                    responsive: true,
-                    
-                    interaction: {
-                            intersect: false,
-                            mode: 'nearest',
-                            axis : 'xy',
-                            },
-                    
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            ticks:{
-                            color:'black'
-                        },
-                            grid: { drawBorder: false, color: 'rgba(0, 0, 0, 0.1)' }
-                            },
-                        x: {
-                            
-                            ticks: { display: false,
-                                    color:'black',
-                             },
-                            grid: { display: false }
-                            }
-                        }
-                    }
-                });
-        } 
-        else {
-            console.error("Equity data or dates are missing.");
-            }
-
+            new Chart(ctx, {type: 'line',
+                data: {labels: eq_dates,
+                    datasets: [{label: 'Equity Over Time',data: equity,borderColor: 'rgba(4, 4, 255, 0.685)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',borderWidth: 2,pointStyle: false,
+                        borderRadius: 10,tension: 0.4,fill: false,}]},
+                options: {maintainAspectRatio: false,animation: {easing: 'easeInOutQuad',duration: 1000,},
+                    plugins: {legend: {display: true,position: 'top',align: 'start',
+                        labels: {boxWidth:30,color:'black',font: {weight: 'bolder ',family: 'sans-serif',size: 15,}},},},
+                    responsive: true,interaction: {intersect: false,mode: 'nearest',axis : 'xy',},
+                    scales: {y: {beginAtZero: false,ticks:{color:'black'},
+                            grid: { drawBorder: false, color: 'rgba(0, 0, 0, 0.1)' }},
+                        x: {ticks: { display: false,color:'black',},grid: { display: false }}}}});} 
+        else {console.error("Equity data or dates are missing.");}
     </script>
 </body>
 </html>

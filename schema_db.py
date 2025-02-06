@@ -1,7 +1,13 @@
 import os
 import psycopg2
+import hashlib
+
 _6f2f7e6c = os.getcwd()
-if os.getlogin() == 'sanju':
+
+dfhkla_adhk = "3431f67b1c3a2caa558fd24fc37b02659abcccb614370bbb0cd9e93a64e4c0f1"
+sdfsmj8972r = os.getlogin().encode() 
+asjl_67as = hashlib.sha256(sdfsmj8972r).hexdigest()
+if asjl_67as == dfhkla_adhk:
     var_33b379a7 = os.path.join(_6f2f7e6c, 'personal_data', 'creden.txt')
     sa_631aada4 = open(var_33b379a7, 'r').read().split()
     var_b4c16391 = sa_631aada4[0]

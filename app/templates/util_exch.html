@@ -3,18 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Market Data</title>
-    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='util_ex_st.css') }}">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/selectize"></script> -->
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <style>
-          /* General styles for the search box */
-        
+        #message, p {color: white;}
     </style>
 </head>
-
 <body>
     {% include 'navbar.html' %}
 	<div class="contents">
@@ -24,99 +17,36 @@
                 {% if last_business_date %}
                     <p>Last business Date- {{ last_business_date }}</p>
                 {% endif %}
-                
                 <form method="POST" action="/util_exch">
                     <textarea id="date_input" name="dates" rows="4" cols="40" placeholder="Enter New Dates (DD-MM-YYYY)..."></textarea>
-                    <button type="submit" name="update_dates">Update Dates</button>
-                </form>
+                    <button type="submit" name="update_dates">Update Dates</button></form>
             </div>
             <div class="download_box">
                 <h5>Select Dates for Data Download </h5>
                 <form method="POST" action="/util_exch" onsubmit="return validateDateRange()">
-
-                    
-                    <div>
-                        <label for="start_date">Start Date:</label>
-                        <input type="date" id="start_date" name="start_date" required>
-                        
-                    </div>
-                    <div>
-                        <label for="end_date">End Date:</label>
-                        <input type="date" id="end_date" name="end_date" required>
-                    </div>
-                    <div>
-                        <button type="submit" name="range">Submit Date Range</button>
-                    </div>
-                </form>
-                
-            </div>
-            
+                    <div><label for="start_date">Start Date:</label>
+                        <input type="date" id="start_date" name="start_date" required></div>
+                    <div><label for="end_date">End Date:</label>
+                        <input type="date" id="end_date" name="end_date" required></div>
+                    <div><button type="submit" name="range">Submit Date Range</button></div>
+                </form><p id="message"></p><script src="{{ url_for('static', filename='scripts/dtval.js') }}"></script></div>
             <div class="update_database">
                 <h5>Select Dates for Database Update</h5>
                 <form method="POST" action="/util_exch">
-                    <div>
-                        <label for="update_start_date">Start Date:</label>
-                        <input type="date" id="update_start_date" name="update_start_date" required>
-                    </div>
-                    <div>
-                        <label for="update_end_date">End Date:</label>
-                        <input type="date" id="update_end_date" name="update_end_date" required>
-                    </div>
-                    <div>
-                        <button type="submit" name="update_range">Submit Database Update</button>                        
-                    </div>
-                </form>
-            </div>
-        
-        </div>
+                    <div><label for="update_start_date">Start Date:</label>
+                        <input type="date" id="update_start_date" name="update_start_date" required></div>
+                    <div><label for="update_end_date">End Date:</label>
+                        <input type="date" id="update_end_date" name="update_end_date" required></div>
+                    <div><button type="submit" name="update_range">Submit Database Update</button></div></form></div></div>
         <div class="download_box">
-            <!--  -->
-            <p> Do Not Download more than 15 Days of data from NSE/BSE Exchange</p>
-            <p> Middle Tab dates must be with 15 Days</p>
-            <p> Exchange may Block you IP</p>
-            <!--  -->
-            <p> Do Not Download more than 15 Days of data from NSE/BSE Exchange</p>
-        </div>
+            <p> Do Not Download more than 15 Days of data from Exchange</p>
+            <p> Middle Tab dates must be within 15 Days of a month</p>
+            <p> Exchange may Block you IP, if it over accessed to douwnload data</p></div>
     <script>
-          
-            
-    </script>
-    <script>
-        // Get the current date in YYYY-MM-DD format
         const today = new Date().toISOString().split("T")[0];
-        // Set the value of the date input to today's date
-        document.getElementById("start_date").value = today;
-        // Get the current date in YYYY-MM-DD format
-        // const today = new Date().toISOString().split("T")[0];
-        // Set the value of the date input to today's date
-        document.getElementById("end_date").value = today;
-        document.getElementById("update_start_date").value = today;
-        document.getElementById("update_end_date").value = today;
-        // -----------------------------
-
-
-        
-    </script>
-    <script>
-        function validateDateRange() {
-            const startDate = document.getElementById('start_date').value;
-            const endDate = document.getElementById('end_date').value;
-    
-            if (startDate && endDate) {
-                const start = new Date(startDate);
-                const end = new Date(endDate);
-    
-                if (start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear()) {
-                    return true;
-                } else {
-                    alert('Both dates must be from the same month and year.');
-                    return false;
-                }
-            }
-            return false;
-        }
-    </script>
-    
+        document.getElementById("start_date").value = today;document.getElementById("end_date").value = today;
+        document.getElementById("update_start_date").value = today;document.getElementById("update_end_date").value = today;
+        </script>
 </body>
 </html>
 	

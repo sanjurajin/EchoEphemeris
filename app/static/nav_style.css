@@ -6,11 +6,11 @@
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
 }
-body{
-  /* background: #f2f2f200; */
-}
+/* body{
+ 
+} */
 nav{
-  background: #171c24;
+  background: #171c24a2;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
