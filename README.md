@@ -32,14 +32,14 @@ Made for personal use (Arvind Bhai inspired me).
 # Now the SETUP Phase
 
 ## 1. Get Project Folder
-        Clone Method
-        Open GitHub Desktop
-        Click on File --> Clone Repository
-        enter repo address & Clone
+        1. Clone Method
+                Open GitHub Desktop
+                Click on File --> Clone Repository
+                enter repo address & Clone
 
-        Manual Method
-        Click on Code (see above) and Download Zip
-        Extract the Folder somewher (This location will be used more frequent)
+        2. Manual Method
+                Click on Code (see above) and Download Zip
+                Extract the Folder somewher (This location will be used more frequent)
 ![Keep Default location](image.png)
 
 
@@ -55,9 +55,12 @@ Made for personal use (Arvind Bhai inspired me).
         python .\schema_db.py  
         python .\initial_setup.py   
 
-## 5. Every time to run the web/app Open Power Shell
+## 5. Every time to run the web/app, Open Power Shell and enter below commands
         .\venv\Scripts\activate
         flask run --debug
+## 6. Open your web Browser and enter the web addredd as below
+127.0.0.1:5000
+It is also shown on the power shell or terminal. Just Control+Click over web address.
 
 
 
