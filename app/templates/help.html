@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help</title>
+    <style>
+        body {margin: 0;padding: 0;height: 100vh;
+            background: linear-gradient(135deg,  #e53935 5%, #d81b60 20%, #8e24aa 50%,
+                #1e88e5 70%,#42a5f5 85%,  #26c6da 100%  );background-size: 200% 200%;}
+        .main {flex: 1; padding: 20px;margin-top: 20px;}
+       
+        .equity_curve_chart {
+            background-color: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            border-radius: 15px;max-width: 100%;
+            /* display:flex;justify-content: center; */
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;padding-top: 10px;
+             /* position: relative; */
+        }
+       
+        h1 {margin: 0; text-align: left;color: white;z-index: 1000;margin-left: 10px;}
+        h2 {margin: 0; text-align: left;color: white;z-index: 1000;margin-left: 10px;}
+        h3 {color:whitesmoke; margin-left: 10px;} 
+        p {color: white;margin-left: 20px;}
+        ul {color: white;margin-left: 45px;}
+        p1 {color:red;margin-left: 20px; text-decoration: underline;background-color: black;padding-bottom: 5px;padding-top: 5px;}
+    </style>
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="main">
+        <h1>Help</h1>
+        <div class="equity_curve_chart">
+            <h2><strong>Abount Home</strong></h2>
+            <h3>Here we have 2 chart</h3>
+                <p>1. First chart showing the trades from the last 4 days</p>   
+                <p>2. Second chart displaying the Equity Curve</p>
+             <h3>Chart Data</h3>
+               
+                <p>To create the chart data, there is an Excel file located in the app/data folder named <strong>"new_trade_log.xlsx"</strong>. </p>
+                <p> Please enter your trades in each row. The key columns to fill in are:</p>
+                <ul>
+                    <li><strong>Open Trade</strong> - Date, Quantity, Price, Amount spent for the trades</li>
+                    <li><strong>Close Trade</strong> - Date, Quantity, Price, Amount received after closing the trades</li>
+                </ul>
+                <p>Other columns are explanatory and meant for potential future updates if needed.</p>
+                <h3>Important</h3>
+    
+                <p>The opening balance is specified in the <strong>"crden.txt"</strong>file under the 4th line.</strong> </p>
+                <p>The Initial Amount indicated is 10000/-.</p>
+                <p>If you happen to add more funds later, please update it here.</p>
+                <p><strong>Note</strong> Please esure that the amount should be written as a single figure. Do not use expressions like 10000+500, but instead mention it as a total, for example, 10500.</p>
+    
+        </div>
+        <div class="equity_curve_chart">
+            <h2>Abount Exch Utility</h2>
+            <p>Here, we have three sections for Exchange-related activities:</p>
+            <h3>1. Last Business Dates</h3>
+            <p>Here, we add business dates to our calendar. It has been already updated until the last business date mentioned in the box.</p>
+            <p>Please mention the dates when the exchange opens. The format is as follows: DD-MM-YYYY (example 01/12/2024).</p>
+            <p><strong>Note : </strong> </p>
+            <p>These calendar dates are used to fetch data from the exchange and update/add to our database.</p>
+            <p>Missing any dates means we won't have data for those dates.</p>
+            <h3>2. Data Download</h3>
+            <p>Enter dates for which data is to be downloaded from the Exchange & Calendar have dates.</p>
+            <p><strong>Note : </strong> </p>
+            <p>&nbsp;</p>
+            <p1><Strong>Caution: Do not input dates exceeding a 15-day range, as this action may result in your IP address being blocked.</Strong></p1>
+            <p>&nbsp;</p>
+            <h3>3. Database Update</h3>
+            <p>Enter dates for which the database needs to be updated with the data downloaded from the Exchange & Calendar have dates.</p>
+        </div>    
+        <div class="equity_curve_chart">
+            <h2>Charts : Fundamental Analysis</h2>
+            <p>Here, we have 2 sections:</p>
+            <h3>1. Symbol Selction Section</h3>
+            <p>Enter symbol and select from the drop down list</p>
+            <h3>2. Charts Section </h3>
+            <p>Self Explanatory</p>
+        </div>        
+    </div>
+    <script></script>
+</body>
+</html>

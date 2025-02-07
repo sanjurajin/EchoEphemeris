@@ -50,3 +50,9 @@ def basic_analysis_n():
         symbol = 'ICICIBANK :- ICICI BANK LTD.  INE090A01021'
     isin_daily_df, script_name = zx_57414141(symbol)
     return render_template('basic_analysis_n.html',isin_daily_df = isin_daily_df.to_dict(orient='records'), all_symbols = all_symbols, script_name=script_name)
+
+
+@app.route('/help')
+def help():
+    
+    return render_template('help.html')
