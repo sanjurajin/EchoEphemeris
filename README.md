@@ -59,7 +59,8 @@ Made for personal use (Arvind Bhai inspired me).
         .\venv\Scripts\activate
         flask run --debug
 ## 6. Open your web Browser and enter the web addredd as below
-127.0.0.1:5000
+        127.0.0.1:5000
+        
 It is also shown on the power shell or terminal. Just Control+Click over web address.
 
 
