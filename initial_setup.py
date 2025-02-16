@@ -39,20 +39,20 @@ def sa_e342d3f6():
     var_479cc7da = zx_ae9a54ec[['isin']]
     zx_69f08581 = set(var_479cc7da['isin'])
     return zx_69f08581
-
+ 
 def sa_f8551387(sa_89a8394b):
     x37ad9730 = ['isin', 'fininstrmid', 'fininstrmid_b', 'tckrsymb', 'tckrsymb_b', 'src', 'src_b', 'fininstrmnm']
     sa_eaeb8393 = sa_89a8394b[x37ad9730]
     var_1d1dfb4f = sa_eaeb8393[(sa_eaeb8393['fininstrmid'].isnull() | (sa_eaeb8393['fininstrmid'] == 0) | (sa_eaeb8393['fininstrmid_b'] == '')) & (sa_eaeb8393['fininstrmid_b'].isnull() | (sa_eaeb8393['fininstrmid'] == 0) | (sa_eaeb8393['fininstrmid_b'] == ''))]
     _be39f99e = sa_eaeb8393[(sa_eaeb8393['src'].isnull() | (sa_eaeb8393['src'] == 0) | (sa_eaeb8393['src_b'] == '')) & (sa_eaeb8393['src_b'].isnull() | (sa_eaeb8393['src'] == 0) | (sa_eaeb8393['src_b'] == ''))]
     for index, row in var_1d1dfb4f.iterrows():
-        print(f'Invalid FININSTRMID at ISIN: {row['isin']} - Both columns are empty or invalid.')
+        print(f"Invalid FININSTRMID at ISIN: {row['isin']} - Both columns are empty or invalid.")
     for index, row in _be39f99e.iterrows():
-        print(f'Invalid SRC at ISIN: {row['isin']} - Both columns are empty or invalid.')
+        print(f"Invalid SRC at ISIN: {row['isin']} - Both columns are empty or invalid.")
     sa_c164102f = pd.concat([var_1d1dfb4f, _be39f99e])
     if not sa_c164102f.empty:
         sa_7c4a135d = pd.to_datetime(sa_89a8394b['traddt'][0]).strftime('%d-%m-%Y')
-        print(f'Invalid rows found. saving to CSV file (invalid_rows-{sa_7c4a135d}) and Exiting...')
+        print(f"Invalid rows found. saving to CSV file (invalid_rows-{sa_7c4a135d}) and Exiting...")
         sa_c164102f.to_csv(f'invalid_rows-{sa_7c4a135d}.csv', index=False)
         sys.exit()
     zx_69f08581 = sa_e342d3f6()

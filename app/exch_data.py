@@ -398,16 +398,18 @@ def xfa20b436(_4c51300a, var_cd8bc1aa):
                 print('Merged_df_nse have more than 1 entry for above Symbols')
                 print(zx_2c6bc158)
                 if _5282482f[sym_col[44]].nunique() == 1:
-                    x0860132f = input('Do you want to remove one of these entries? (Enter or yes/no): ')
-                    if x0860132f.lower() == 'yes' or x0860132f == '':
-                        _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
-                        print(f'Removed one entry for {zx_2c6bc158}.')
-                    elif x0860132f.lower() == 'no':
-                        print(f'Different qty_del for {zx_2c6bc158}: {_5282482f[sym_col[44]].unique()}')
-                    else:
-                        print('Invalid input.')
-                        _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
-                        print(f'Removed one entry for {zx_2c6bc158}.')
+                    # x0860132f = input('Do you want to remove one of these entries? (Enter or yes/no): ')
+                    _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
+                    print(f'Removed one entry for {zx_2c6bc158} with # Value.')
+                    # if x0860132f.lower() == 'yes' or x0860132f == '':
+                    #     _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
+                    #     print(f'Removed one entry for {zx_2c6bc158}.')
+                    # elif x0860132f.lower() == 'no':
+                    #     print(f'Different qty_del for {zx_2c6bc158}: {_5282482f[sym_col[44]].unique()}')
+                    # else:
+                    #     print('Invalid input.')
+                    #     _a23a1d2f = _a23a1d2f[~((_a23a1d2f[sym_col[58]] == zx_2c6bc158) & (_a23a1d2f[sym_col[46]] != 'EQ'))]
+                    #     print(f'Removed one entry for {zx_2c6bc158}.')
         x00f317ee = _a23a1d2f[sym_col[30]].value_counts()
         sa_d4c4dcfd = x00f317ee[x00f317ee > 1]
         if len(sa_d4c4dcfd) != 0:
